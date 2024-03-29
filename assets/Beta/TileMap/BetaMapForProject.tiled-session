@@ -1,0 +1,59 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "NewMap.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "BetaTexture.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "BetaTileMap.tmx": {
+            "scale": 1.128125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 286.3157894736842,
+                "y": 255.73407202216066
+            }
+        },
+        "MapTextureBeta2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "NewMap.tmx": {
+            "scale": 4,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 137.125,
+                "y": 298.75
+            }
+        }
+    },
+    "last.imagePath": "C:/Users/ADMIN/Desktop/RealGame/assets/Beta/TileMap",
+    "map.height": 30,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "openFiles": [
+        "MapTextureBeta2.tsx",
+        "BetaTileMap.tmx",
+        "NewMap.tmx"
+    ],
+    "project": "BetaMapForProject.tiled-project",
+    "recentFiles": [
+        "MapTextureBeta2.tsx",
+        "BetaTileMap.tmx",
+        "NewMap.tmx",
+        "BetaTexture.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

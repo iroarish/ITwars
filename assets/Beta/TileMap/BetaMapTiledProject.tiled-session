@@ -1,0 +1,43 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "BetaTileMap.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "BetaTexture.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "BetaTileMap.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 262,
+                "y": 326.6666666666667
+            }
+        }
+    },
+    "last.imagePath": "C:/Users/ADMIN/Desktop/UndeadZamurai/assets/Beta",
+    "map.height": 32,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 32,
+    "openFiles": [
+        "BetaTileMap.tmx",
+        "BetaTexture.tsx"
+    ],
+    "project": "BetaMapTiledProject.tiled-project",
+    "recentFiles": [
+        "BetaTexture.tsx",
+        "BetaTileMap.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
