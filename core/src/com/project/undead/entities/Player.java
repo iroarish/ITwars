@@ -21,7 +21,7 @@ public class Player extends Entity {
         this.pos.x = pos.x;
         this.pos.y = pos.y;
         texture = Media.player;
-        speed = 30;
+        speed = 20;
         body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.MYPLAYER, maskHelper.playerMask);
     }
 
