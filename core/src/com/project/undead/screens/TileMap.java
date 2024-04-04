@@ -51,7 +51,7 @@ public class TileMap {
                 RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
                 Rectangle rectangle = rectangleMapObject.getRectangle();
 
-                CollisionHelper.createBody(world, rectangle.getWidth(), rectangle.getHeight(), new Vector3(rectangle.getX(), rectangle.getY(), 0), BodyDef.BodyType.StaticBody, maskHelper.SCENE, maskHelper.SCENE_MASK, "Map");
+                CollisionHelper.createBody(world, rectangle.getWidth(), rectangle.getHeight(), new Vector3(rectangle.getX(), rectangle.getY(), 0), BodyDef.BodyType.StaticBody, maskHelper.SCENE, maskHelper.SCENE_MASK, "Scene");
 
             }
         }

@@ -15,6 +15,7 @@ public abstract class Entity {
     public Enums.ENTITYTYPE type;
     public float speed;
     public Body body;
+    public Body hitbox;
 
     float dirX = 0;
     float dirY = 0;

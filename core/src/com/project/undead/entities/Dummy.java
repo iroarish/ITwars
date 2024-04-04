@@ -1,10 +1,12 @@
 package com.project.undead.entities;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.project.undead.Enums;
 import com.project.undead.Media;
 import com.project.undead.collision.CollisionHelper;
+import com.project.undead.collision.HitboxHelper;
 import com.project.undead.collision.MaskHelper;
 import com.project.undead.screens.TileMap;
 
@@ -26,7 +28,7 @@ public class Dummy extends Entity{
         this.pos.y = pos.y;
         texture = Media.dummy;
         body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.DUMMIES, maskHelper.DUMMY_MASK, "Dummy");
-        CollisionHelper.body.setUserData("Dummy");
+//        hitbox = HitboxHelper.createHitbox(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, "Dummy");
     }
 
 

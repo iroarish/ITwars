@@ -7,6 +7,7 @@ import com.project.undead.Control;
 import com.project.undead.Enums;
 import com.project.undead.Media;
 import com.project.undead.collision.CollisionHelper;
+import com.project.undead.collision.HitboxHelper;
 import com.project.undead.collision.MaskHelper;
 import com.project.undead.screens.TileMap;
 
@@ -25,8 +26,8 @@ public class Player extends Entity {
         this.pos.y = pos.y;
         texture = Media.player;
         speed = STAT.PLAYER_SPEED;
-        body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.MYPLAYER, maskHelper.PLAYER_MASK, "Dummy");
-        CollisionHelper.body.setUserData("Player");
+        body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.MYPLAYER, maskHelper.PLAYER_MASK, "Player");
+//        hitbox = HitboxHelper.createHitbox(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, "Player");
     }
 
     public void update(Control control) {
