@@ -8,8 +8,10 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class CollisionHelper {
-    public static Body createBody(World world, float width, float height, Vector3 pos, BodyDef.BodyType type, short objectCollision, short collideWith) {
-        Body body;
+
+    public static Body body;
+
+    public static Body createBody(World world, float width, float height, Vector3 pos, BodyDef.BodyType type, short maskCategory, short collideWith, String id) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(pos.x + width/2, pos.y + height/2);
         bodyDef.angle = 0;
@@ -23,7 +25,7 @@ public class CollisionHelper {
 
         fixtureDef.shape = boxShape;
         fixtureDef.restitution = 0.4f;
-        fixtureDef.filter.categoryBits = objectCollision;
+        fixtureDef.filter.categoryBits = maskCategory;
         fixtureDef.filter.maskBits = collideWith;
 
         body.createFixture(fixtureDef);

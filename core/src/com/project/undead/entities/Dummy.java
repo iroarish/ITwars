@@ -6,25 +6,27 @@ import com.project.undead.Enums;
 import com.project.undead.Media;
 import com.project.undead.collision.CollisionHelper;
 import com.project.undead.collision.MaskHelper;
-import com.project.undead.collision.TileMap;
-
-import static com.project.undead.collision.CollisionHelper.createBody;
+import com.project.undead.screens.TileMap;
 
 public class Dummy extends Entity{
     MaskHelper maskHelper;
+    ENTITYSTAT STAT;
 
     public Dummy(Vector3 pos) {
-
         super();
+        STAT = new ENTITYSTAT();
         maskHelper = new MaskHelper();
+
+        // Enemy stuffswww
         type = Enums.ENTITYTYPE.DUMMY;
         width = 8;
         height = 8;
-        speed = 15;
+        speed = STAT.DUMMY_SPEED;
         this.pos.x = pos.x;
         this.pos.y = pos.y;
         texture = Media.dummy;
-        body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.DUMMIES, maskHelper.dummyMask);
+        body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.DUMMIES, maskHelper.DUMMY_MASK, "Dummy");
+        CollisionHelper.body.setUserData("Dummy");
     }
 
 
@@ -53,4 +55,8 @@ public class Dummy extends Entity{
         pos.y = body.getPosition().y - height / 4;
     }
 
+    @Override
+    public void onPlayerHit() {
+        System.out.println("Dummy hit!");
+    }
 }

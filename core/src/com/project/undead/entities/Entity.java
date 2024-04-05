@@ -27,4 +27,6 @@ public abstract class Entity {
     public void draw(SpriteBatch batch) {
         batch.draw(texture, pos.x, pos.y, width, height);
     }
+
+    public abstract void onPlayerHit();
 }

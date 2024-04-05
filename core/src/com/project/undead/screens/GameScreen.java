@@ -7,13 +7,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 import com.project.undead.Control;
 import com.project.undead.GameClass;
 import com.project.undead.Media;
-import com.project.undead.collision.TileMap;
 import com.project.undead.entities.Dummy;
 import com.project.undead.entities.Player;
 
@@ -22,7 +19,6 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     // Sprite sprite;
     private Texture texture;
-    private World world;
     private Box2DDebugRenderer debugRenderer;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private TileMap tileMap;
@@ -47,7 +43,6 @@ public class GameScreen implements Screen {
         Media.loadMedia();
         // Initialize our world without gravity thus .0f, .0f
         // Initialize our debug renderer
-        world = new World(new Vector2(.0f, .0f), true);
         debugRenderer = new Box2DDebugRenderer();
         game.batch = new SpriteBatch();
         tileMap = new TileMap();
@@ -76,7 +71,6 @@ public class GameScreen implements Screen {
         // HUH? ANO TO?
         player = new Player(tileMap.getCenterTile());
         tileMap.addEntities();
-
     }
 
     @Override
@@ -85,6 +79,9 @@ public class GameScreen implements Screen {
         // Use to reset graphics and fix some graphical errors...
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        TileMap.world.step(Gdx.graphics.getDeltaTime(), 8, 3);
+
 
         player.update(control);
         for (Dummy e : tileMap.entities) {
@@ -113,6 +110,7 @@ public class GameScreen implements Screen {
         game.batch.end();
 
         tileMap.tick(camera, control);
+
     }
 
     @Override
