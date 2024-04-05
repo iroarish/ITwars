@@ -1,4 +1,4 @@
-package com.project.undead.collision;
+package com.project.undead.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,6 +13,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.physics.box2d.*;
 import com.project.undead.Control;
+import com.project.undead.collision.CollisionHelper;
+import com.project.undead.collision.ContactChecker;
+import com.project.undead.collision.MaskHelper;
 import com.project.undead.entities.Dummy;
 
 import java.util.ArrayList;
@@ -31,6 +34,7 @@ public class TileMap {
         setupMap();
 
         world = new World(new Vector2(.0f, .0f), true);
+        TileMap.world.setContactListener(new ContactChecker());
         debugRenderer = new Box2DDebugRenderer();
 
         getCollision();
@@ -47,7 +51,7 @@ public class TileMap {
                 RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
                 Rectangle rectangle = rectangleMapObject.getRectangle();
 
-                CollisionHelper.createBody(world, rectangle.getWidth(), rectangle.getHeight(), new Vector3(rectangle.getX(), rectangle.getY(), 0), BodyDef.BodyType.StaticBody, maskHelper.SCENE, maskHelper.sceneMask);
+                CollisionHelper.createBody(world, rectangle.getWidth(), rectangle.getHeight(), new Vector3(rectangle.getX(), rectangle.getY(), 0), BodyDef.BodyType.StaticBody, maskHelper.SCENE, maskHelper.SCENE_MASK, "Scene");
 
             }
         }

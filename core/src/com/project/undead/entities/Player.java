@@ -1,19 +1,23 @@
 package com.project.undead.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.project.undead.Control;
 import com.project.undead.Enums;
 import com.project.undead.Media;
 import com.project.undead.collision.CollisionHelper;
+import com.project.undead.collision.HitboxHelper;
 import com.project.undead.collision.MaskHelper;
-import com.project.undead.collision.TileMap;
+import com.project.undead.screens.TileMap;
 
 public class Player extends Entity {
     MaskHelper maskHelper;
+    ENTITYSTAT STAT;
     public Player(Vector3 pos) {
-
+        STAT = new ENTITYSTAT();
         maskHelper = new MaskHelper();
+
         // Player Stuffs
         type = Enums.ENTITYTYPE.PLAYER;
         width = 8;
@@ -21,8 +25,9 @@ public class Player extends Entity {
         this.pos.x = pos.x;
         this.pos.y = pos.y;
         texture = Media.player;
-        speed = 30;
-        body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.MYPLAYER, maskHelper.playerMask);
+        speed = STAT.PLAYER_SPEED;
+        body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.MYPLAYER, maskHelper.PLAYER_MASK, "Player");
+//        hitbox = HitboxHelper.createHitbox(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, "Player");
     }
 
     public void update(Control control) {
@@ -50,11 +55,8 @@ public class Player extends Entity {
         pos.y = body.getPosition().y - height / 4;
     }
 
-    public float getCameraX() {
-        return pos.x + width / 2;
-    }
-
-    public float getCameraY() {
-        return pos.y + height / 2;
+    @Override
+    public void onPlayerHit() {
+        System.out.println("Player is hit: " + Gdx.graphics.getDeltaTime());
     }
 }

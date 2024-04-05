@@ -35,6 +35,12 @@ public class Control extends InputAdapter implements InputProcessor {
         this.screenHeight = screen_height;
     }
 
+    public Control(int screen_width, int screen_height) {
+//        this.camera = Vector3;
+        this.screenWidth = screen_width;
+        this.screenHeight = screen_height;
+    }
+
     public void setMouseClickedPos(int screenX, int screenY) {
         // Set mouse pos and flip screen Y
         mouseClickPos.set(screenX, screenHeight - screenY);

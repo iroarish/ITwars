@@ -15,6 +15,7 @@ public abstract class Entity {
     public Enums.ENTITYTYPE type;
     public float speed;
     public Body body;
+    public Body hitbox;
 
     float dirX = 0;
     float dirY = 0;
@@ -27,4 +28,6 @@ public abstract class Entity {
     public void draw(SpriteBatch batch) {
         batch.draw(texture, pos.x, pos.y, width, height);
     }
+
+    public abstract void onPlayerHit();
 }
