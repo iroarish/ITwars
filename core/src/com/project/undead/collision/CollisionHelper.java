@@ -33,14 +33,14 @@ public class CollisionHelper {
 
         FixtureDef hitboxFixture = new FixtureDef();
         PolygonShape hitbox = new PolygonShape();
-        // Change to '/' later
-        hitbox.setAsBox(width / 2, height / 2);
+
+        hitbox.setAsBox(width / 1.5f, height / 1.5f);
 
         hitboxFixture.shape = hitbox;
         hitboxFixture.isSensor = true;
 //        fixtureDef.restitution = 0.4f;
 
-        body.createFixture(hitboxFixture).setUserData(id);;
+        body.createFixture(hitboxFixture).setUserData(body + id);;
         hitbox.dispose();
 
         return body;

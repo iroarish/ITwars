@@ -9,6 +9,7 @@ import com.project.undead.collision.CollisionHelper;
 import com.project.undead.collision.HitboxHelper;
 import com.project.undead.collision.MaskHelper;
 import com.project.undead.screens.TileMap;
+import sun.jvm.hotspot.debugger.cdbg.basic.BasicDoubleType;
 
 public class Dummy extends Entity{
     MaskHelper maskHelper;
@@ -28,7 +29,13 @@ public class Dummy extends Entity{
         this.pos.y = pos.y;
         texture = Media.dummy;
         body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.DUMMIES, maskHelper.DUMMY_MASK, "Dummy");
+        body.setAwake(true);
+        //body.setSleepingAllowed(false);
 //        hitbox = HitboxHelper.createHitbox(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, "Dummy");
+
+        if (!body.isAwake()) {
+            System.out.println(body.getUserData() + " Dummy is sleeping.");
+        }
     }
 
 
