@@ -6,6 +6,8 @@ import com.project.undead.entities.Entity;
 
 public class ContactChecker implements ContactListener {
 
+    int counter = 1;
+
     @Override
     public void beginContact(Contact contact) {
         Fixture fixA = contact.getFixtureA();
@@ -13,7 +15,11 @@ public class ContactChecker implements ContactListener {
 
         if (fixA == null || fixB == null) return;
         if (fixA.getUserData() == null || fixB.getUserData() == null) return;
-        System.out.println(fixA.getUserData() + " " + fixB.getUserData());
+        if (fixA.getUserData().equals("Player") || fixB.getUserData().equals("Player")) {
+            System.out.println(counter + " " + fixA.getUserData() + " " + fixB.getUserData());
+            counter++;
+        }
+
     }
 
     @Override

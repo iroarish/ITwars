@@ -26,7 +26,7 @@ public class Player extends Entity {
         this.pos.y = pos.y;
         texture = Media.player;
         speed = STAT.PLAYER_SPEED;
-        body = CollisionHelper.createBody(TileMap.world, width * 2, height * 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.MYPLAYER, maskHelper.PLAYER_MASK, "Player");
+        body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.MYPLAYER, maskHelper.PLAYER_MASK, "Player");
 //        hitbox = HitboxHelper.createHitbox(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, "Player");
     }
 

@@ -34,14 +34,38 @@ public class CollisionHelper {
         FixtureDef hitboxFixture = new FixtureDef();
         PolygonShape hitbox = new PolygonShape();
 
-        hitbox.setAsBox(width / 1.5f, height / 1.5f);
+        hitbox.setAsBox(width / 2f, height / 2f);
 
         hitboxFixture.shape = hitbox;
         hitboxFixture.isSensor = true;
 //        fixtureDef.restitution = 0.4f;
 
-        body.createFixture(hitboxFixture).setUserData(body + id);;
+        body.createFixture(hitboxFixture).setUserData(id);;
         hitbox.dispose();
+
+        return body;
+    }
+
+    public static Body createBody(World world, float width, float height, Vector3 pos, BodyDef.BodyType type, short maskCategory, short collideWith) {
+        Body body;
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.position.set(pos.x + width/2, pos.y + height/2);
+        bodyDef.angle = 0;
+        bodyDef.fixedRotation = true;
+        bodyDef.type = type;
+        body = world.createBody(bodyDef);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        PolygonShape boxShape = new PolygonShape();
+        boxShape.setAsBox(width / 2, height / 2);
+
+        fixtureDef.shape = boxShape;
+        fixtureDef.restitution = 0.4f;
+        fixtureDef.filter.categoryBits = maskCategory;
+        fixtureDef.filter.maskBits = collideWith;
+
+        body.createFixture(fixtureDef);
+        boxShape.dispose();
 
         return body;
     }
