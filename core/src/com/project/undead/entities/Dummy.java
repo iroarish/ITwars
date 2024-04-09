@@ -1,5 +1,6 @@
 package com.project.undead.entities;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -65,7 +66,17 @@ public class Dummy extends Entity{
     }
 
     @Override
-    public void onPlayerHit() {
+    public void onHit() {
         System.out.println("Dummy hit!");
+    }
+
+    @Override
+    public Rectangle getEntityRectangle() {
+        return new Rectangle(pos.x, pos.y, width, height);
+    }
+
+    @Override
+    public boolean isIntersecting(Rectangle otherRect) {
+        return super.isIntersecting(otherRect);
     }
 }

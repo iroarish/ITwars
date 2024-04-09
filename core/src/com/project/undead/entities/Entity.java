@@ -2,6 +2,7 @@ package com.project.undead.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -28,5 +29,10 @@ public abstract class Entity {
         batch.draw(texture, pos.x, pos.y, width, height);
     }
 
-    public abstract void onPlayerHit();
+    public abstract void onHit();
+    public abstract Rectangle getEntityRectangle();
+    public boolean isIntersecting(Rectangle otherRect) {
+        Rectangle thisRect = getEntityRectangle();
+        return thisRect.overlaps(otherRect);
+    }
 }

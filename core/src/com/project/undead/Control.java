@@ -1,5 +1,6 @@
 package com.project.undead;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
@@ -39,6 +40,10 @@ public class Control extends InputAdapter implements InputProcessor {
 //        this.camera = Vector3;
         this.screenWidth = screen_width;
         this.screenHeight = screen_height;
+    }
+
+    public Vector2 getMousePos() {
+        return new Vector2(Gdx.input.getX(), Gdx.input.getY());
     }
 
     public void setMouseClickedPos(int screenX, int screenY) {

@@ -13,10 +13,18 @@ public class GameMainMenu implements Screen {
 
     Texture playButton;
     Texture quitButton;
+    Texture activePlayButton;
+    Texture activeQuitButton;
     Texture title;
 
     ScreenSize screen = new ScreenSize();
     Control control;
+
+    // Variable for Positions
+    float playButtonX;
+    float playButtonY;
+    float mouseX;
+    float mouseY;
 
 
     public GameMainMenu(GameClass game) {
@@ -24,30 +32,42 @@ public class GameMainMenu implements Screen {
 
         playButton = new Texture("UI/PlayButton.png");
         quitButton = new Texture("UI/QuitButton.png");
+        activePlayButton = new Texture("UI/ActivePlayButton.png");
+        activeQuitButton = new Texture("UI/ActiveQuitButton.png");
         title = new Texture("UI/Title.png");
+        control = new Control(screen.SCREENWIDTH, screen.SCREENHEIGHT);
+
+        // Variable for Positions
+        playButtonX = (screen.SCREENWIDTH - activePlayButton.getWidth()) / 2f;
+        playButtonY = screen.SCREENHEIGHT / 2.8f;
     }
 
     @Override
     public void show() {
-        control = new Control(screen.SCREENWIDTH, screen.SCREENHEIGHT);
-        Gdx.input.setInputProcessor(control);
     }
 
     @Override
     public void render(float v) {
+        // Mouse Position
+        mouseX = control.getMousePos().x;
+        mouseY = control.getMousePos().y;
+
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
 
-        game.batch.draw(title, screen.SCREENWIDTH / 2.6f, screen.SCREENHEIGHT / 1.5f);
-        game.batch.draw(playButton, screen.SCREENWIDTH / 2.2f, screen.SCREENHEIGHT / 2.8f);
-        game.batch.draw(quitButton, screen.SCREENWIDTH / 2.2f, screen.SCREENHEIGHT / 3.9f);
+        game.batch.draw(title, (screen.SCREENWIDTH - title.getWidth()) / 2f, screen.SCREENHEIGHT / 1.5f);
+
+        if (mouseX > playButtonX && mouseX < (playButtonX + activePlayButton.getWidth()) && mouseY > playButtonY * 1.6f && mouseY < (playButtonY * 1.6) + playButton.getHeight()) {
+            game.batch.draw(activePlayButton, playButtonX, playButtonY);
+        } else {
+            game.batch.draw(playButton, playButtonX, playButtonY);
+        }
+
+        game.batch.draw(quitButton, (screen.SCREENWIDTH - quitButton.getWidth()) / 2f, screen.SCREENHEIGHT / 3.9f);
 
         game.batch.end();
-
-
-        System.out.println(control.mapClickPos);
     }
 
     @Override
