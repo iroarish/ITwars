@@ -59,13 +59,21 @@ public class GameMainMenu implements Screen {
 
         game.batch.draw(title, (screen.SCREENWIDTH - title.getWidth()) / 2f, screen.SCREENHEIGHT / 1.5f);
 
+
+
+        game.batch.draw(quitButton, (screen.SCREENWIDTH - quitButton.getWidth()) / 2f, screen.SCREENHEIGHT / 3.9f);
+
         if (mouseX > playButtonX && mouseX < (playButtonX + activePlayButton.getWidth()) && mouseY > playButtonY * 1.6f && mouseY < (playButtonY * 1.6) + playButton.getHeight()) {
             game.batch.draw(activePlayButton, playButtonX, playButtonY);
+
+            if (control.isClicked()) {
+                this.dispose();
+                game.setScreen(new GameScreen(game));
+                game.batch.begin();
+            }
         } else {
             game.batch.draw(playButton, playButtonX, playButtonY);
         }
-
-        game.batch.draw(quitButton, (screen.SCREENWIDTH - quitButton.getWidth()) / 2f, screen.SCREENHEIGHT / 3.9f);
 
         game.batch.end();
     }
@@ -91,6 +99,6 @@ public class GameMainMenu implements Screen {
 
     @Override
     public void dispose() {
-        game.dispose();
+//        game.batch.dispose();
     }
 }

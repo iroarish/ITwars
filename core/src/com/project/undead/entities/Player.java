@@ -1,14 +1,12 @@
 package com.project.undead.entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.project.undead.Control;
 import com.project.undead.Enums;
 import com.project.undead.Media;
 import com.project.undead.collision.CollisionHelper;
-import com.project.undead.collision.HitboxHelper;
 import com.project.undead.collision.MaskHelper;
 import com.project.undead.screens.TileMap;
 
@@ -28,7 +26,6 @@ public class Player extends Entity {
         texture = Media.player;
         speed = STAT.PLAYER_SPEED;
         body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.MYPLAYER, maskHelper.PLAYER_MASK, "Player");
-//        hitbox = HitboxHelper.createHitbox(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, "Player");
     }
 
     public void update(Control control) {
@@ -59,15 +56,5 @@ public class Player extends Entity {
     @Override
     public void onHit() {
         System.out.println("Player is hit: " + Gdx.graphics.getDeltaTime());
-    }
-
-    @Override
-    public Rectangle getEntityRectangle() {
-        return new Rectangle(pos.x, pos.y, width, height);
-    }
-
-    @Override
-    public boolean isIntersecting(Rectangle otherRect) {
-        return super.isIntersecting(otherRect);
     }
 }

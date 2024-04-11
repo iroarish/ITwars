@@ -23,6 +23,10 @@ public class HitboxHelper {
         hitboxFixture.isSensor = true;
 //        fixtureDef.restitution = 0.4f;
 
+
+
+
+
         body.createFixture(hitboxFixture).setUserData(id);;
         hitbox.dispose();
 

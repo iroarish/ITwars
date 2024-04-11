@@ -46,6 +46,10 @@ public class Control extends InputAdapter implements InputProcessor {
         return new Vector2(Gdx.input.getX(), Gdx.input.getY());
     }
 
+    public boolean isClicked() {
+        return Gdx.input.isTouched();
+    }
+
     public void setMouseClickedPos(int screenX, int screenY) {
         // Set mouse pos and flip screen Y
         mouseClickPos.set(screenX, screenHeight - screenY);

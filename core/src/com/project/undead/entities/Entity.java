@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.project.undead.Control;
 import com.project.undead.Enums;
 
 public abstract class Entity {
@@ -30,9 +31,4 @@ public abstract class Entity {
     }
 
     public abstract void onHit();
-    public abstract Rectangle getEntityRectangle();
-    public boolean isIntersecting(Rectangle otherRect) {
-        Rectangle thisRect = getEntityRectangle();
-        return thisRect.overlaps(otherRect);
-    }
 }

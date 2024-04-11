@@ -13,6 +13,7 @@ import com.project.undead.GameClass;
 import com.project.undead.Media;
 import com.project.undead.entities.Dummy;
 import com.project.undead.entities.Player;
+import com.project.undead.entities.WeaponTest;
 
 public class GameScreen implements Screen {
 
@@ -29,6 +30,7 @@ public class GameScreen implements Screen {
     private int displayH;
     Control control;
     Player player;
+    WeaponTest weaponTest;
 
     GameClass game;
 
@@ -70,6 +72,7 @@ public class GameScreen implements Screen {
 
         // HUH? ANO TO?
         player = new Player(tileMap.getCenterTile());
+        weaponTest = new WeaponTest(player.pos);
         tileMap.addEntities();
     }
 
@@ -83,7 +86,9 @@ public class GameScreen implements Screen {
         TileMap.world.step(Gdx.graphics.getDeltaTime(), 8, 3);
 
 
+
         player.update(control);
+        weaponTest.update(player, control);
         for (Dummy e : tileMap.entities) {
             e.update(player);
         }
@@ -101,6 +106,7 @@ public class GameScreen implements Screen {
 //		batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 
         game.batch.begin();
+
 
         player.draw(game.batch);
         for (Dummy e : tileMap.entities) {
@@ -135,6 +141,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        game.batch.dispose();
+//        game.batch.dispose();
     }
 }

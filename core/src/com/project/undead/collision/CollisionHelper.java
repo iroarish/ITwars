@@ -24,7 +24,9 @@ public class CollisionHelper {
         boxShape.setAsBox(width / 2, height / 2);
 
         fixtureDef.shape = boxShape;
-        fixtureDef.restitution = 0.4f;
+        fixtureDef.density = 20.0f;
+        fixtureDef.friction = 1.0f;
+        fixtureDef.restitution = 0.0f;
         fixtureDef.filter.categoryBits = maskCategory;
         fixtureDef.filter.maskBits = collideWith;
 
@@ -66,6 +68,34 @@ public class CollisionHelper {
 
         body.createFixture(fixtureDef);
         boxShape.dispose();
+
+        return body;
+    }
+
+    public static Body weaponHitbox(World world, float width, float height, Vector3 pos, short mask) {
+        Body body;
+        BodyDef bdef = new BodyDef();
+        bdef.position.set(pos.x, pos.y);
+        bdef.angle = 0;
+        bdef.fixedRotation = true;
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        body = world.createBody(bdef);
+
+        FixtureDef hitboxDef = new FixtureDef();
+        PolygonShape hitbox = new PolygonShape();
+        hitbox.setAsBox(width, height);
+
+        hitboxDef.shape = hitbox;
+        hitboxDef.isSensor = true;
+
+        FixtureDef physicalDef = new FixtureDef();
+
+        physicalDef.shape = hitbox;
+        physicalDef.filter.maskBits = mask;
+
+        body.createFixture(hitboxDef);
+        body.createFixture(physicalDef);
+        hitbox.dispose();
 
         return body;
     }

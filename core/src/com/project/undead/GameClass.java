@@ -22,5 +22,6 @@ public class GameClass extends Game {
 	
 	@Override
 	public void dispose () {
+		batch.dispose();
 	}
 }

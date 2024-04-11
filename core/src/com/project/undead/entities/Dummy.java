@@ -1,16 +1,13 @@
 package com.project.undead.entities;
 
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.project.undead.Control;
 import com.project.undead.Enums;
 import com.project.undead.Media;
 import com.project.undead.collision.CollisionHelper;
-import com.project.undead.collision.HitboxHelper;
 import com.project.undead.collision.MaskHelper;
 import com.project.undead.screens.TileMap;
-import sun.jvm.hotspot.debugger.cdbg.basic.BasicDoubleType;
 
 public class Dummy extends Entity{
     MaskHelper maskHelper;
@@ -38,7 +35,6 @@ public class Dummy extends Entity{
             System.out.println(body.getUserData() + " Dummy is sleeping.");
         }
     }
-
 
     public void update(Player player) {
         dirX = 0;
@@ -68,15 +64,5 @@ public class Dummy extends Entity{
     @Override
     public void onHit() {
         System.out.println("Dummy hit!");
-    }
-
-    @Override
-    public Rectangle getEntityRectangle() {
-        return new Rectangle(pos.x, pos.y, width, height);
-    }
-
-    @Override
-    public boolean isIntersecting(Rectangle otherRect) {
-        return super.isIntersecting(otherRect);
     }
 }
