@@ -26,7 +26,7 @@ public class Dummy extends Entity{
         this.pos.x = pos.x;
         this.pos.y = pos.y;
         texture = Media.dummy;
-        body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.DUMMIES, maskHelper.DUMMY_MASK, "Dummy");
+        body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.DUMMIES, maskHelper.DUMMY_MASK, this);
         body.setAwake(true);
         //body.setSleepingAllowed(false);
 //        hitbox = HitboxHelper.createHitbox(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, "Dummy");

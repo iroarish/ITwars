@@ -6,11 +6,12 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.project.undead.entities.Entity;
 
 public class CollisionHelper {
 
 
-    public static Body createBody(World world, float width, float height, Vector3 pos, BodyDef.BodyType type, short maskCategory, short collideWith, String id) {
+    public static Body createBody(World world, float width, float height, Vector3 pos, BodyDef.BodyType type, short maskCategory, short collideWith, Entity id) {
         Body body;
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(pos.x + width/2, pos.y + height/2);

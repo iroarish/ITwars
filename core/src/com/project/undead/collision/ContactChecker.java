@@ -3,6 +3,7 @@ package com.project.undead.collision;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
 import com.project.undead.entities.Entity;
+import com.project.undead.entities.Player;
 
 public class ContactChecker implements ContactListener {
 
@@ -14,10 +15,11 @@ public class ContactChecker implements ContactListener {
         Fixture fixB = contact.getFixtureB();
 
         if (fixA == null || fixB == null) return;
-        if (fixA.getUserData() == null || fixB.getUserData() == null) return;
-        if (fixA.getUserData().equals("Player") || fixB.getUserData().equals("Player")) {
-            System.out.println(counter + " " + fixA.getUserData() + " " + fixB.getUserData());
-            counter++;
+
+        if (fixA.getUserData() instanceof Player) {
+            ((Entity) fixA.getUserData()).onHit();
+        } else if (fixB.getUserData() instanceof Player) {
+            ((Entity) fixA.getUserData()).onHit();
         }
 
     }
