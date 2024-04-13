@@ -7,22 +7,25 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.project.undead.Control;
-import com.project.undead.GameClass;
-import com.project.undead.Media;
+import com.project.undead.*;
 import com.project.undead.entities.Dummy;
 import com.project.undead.entities.Player;
 import com.project.undead.entities.WeaponTest;
 
+import java.nio.channels.ShutdownChannelGroupException;
+
 public class GameScreen implements Screen {
 
     private OrthographicCamera camera;
+    private OrthographicCamera hudCamera;
     // Sprite sprite;
     private Texture texture;
     private Box2DDebugRenderer debugRenderer;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private TileMap tileMap;
+    ScreenSize screen = new ScreenSize();
 
 
     // Display Size
@@ -61,8 +64,12 @@ public class GameScreen implements Screen {
         int h = displayH / 2; //266; //(int) (displayH/ Math.floor(displayH / 160));
         int w = displayW / 2; //200; //(int) (displayW / (displayH / Math.floor(displayH / 160)));
 
+        // Camera stuffs
         camera = new OrthographicCamera(w, h);
         camera.zoom = .3f;
+
+        hudCamera = new OrthographicCamera(w, h);
+        hudCamera.zoom = 2f;
 
         // Keyboard input
         control = new Control(displayW, displayH, camera);
@@ -86,7 +93,6 @@ public class GameScreen implements Screen {
         TileMap.world.step(Gdx.graphics.getDeltaTime(), 8, 3);
 
 
-
         player.update(control);
         weaponTest.update(player, control);
         for (Dummy e : tileMap.entities) {
@@ -107,6 +113,14 @@ public class GameScreen implements Screen {
 
         game.batch.begin();
 
+        if (player.HITPOINTS < 1) {
+            this.dispose();
+            hudCamera.position.x = screen.SCREENWIDTH / 2f;
+            hudCamera.position.y = screen.SCREENHEIGHT / 2f;
+            hudCamera.update();
+            game.batch.setProjectionMatrix(hudCamera.combined);
+            game.setScreen(new GameOver(game));
+        }
 
         player.draw(game.batch);
         for (Dummy e : tileMap.entities) {
@@ -141,6 +155,5 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-//        game.batch.dispose();
     }
 }

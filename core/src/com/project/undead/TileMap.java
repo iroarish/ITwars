@@ -1,4 +1,4 @@
-package com.project.undead.screens;
+package com.project.undead;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,7 +12,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.physics.box2d.*;
-import com.project.undead.Control;
 import com.project.undead.collision.CollisionHelper;
 import com.project.undead.collision.ContactChecker;
 import com.project.undead.collision.MaskHelper;
@@ -78,7 +77,7 @@ public class TileMap {
         MapLayer mapLayer = tiledMap.getLayers().get("Grass");
         TiledMapTileLayer grass = (TiledMapTileLayer) mapLayer;
 
-        int limit = 10;
+        int limit = 100;
         int counter = 0;
 
 
@@ -88,7 +87,7 @@ public class TileMap {
                 TiledMapTileLayer.Cell cell = grass.getCell(x, y);
                 Vector3 pos = new Vector3(x * ((TiledMapTileLayer) mapLayer).getTileWidth(), y * ((TiledMapTileLayer) mapLayer).getTileHeight(), 0);
                 if (cell != null) {
-                    if (MathUtils.random(100) > 90 && counter < limit) {
+                    if (MathUtils.random(100) > 50 && counter < limit) {
                         dummy = new Dummy(pos);
                         entities.add(dummy);
                         counter++;

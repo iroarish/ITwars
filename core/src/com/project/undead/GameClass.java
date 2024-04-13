@@ -3,6 +3,7 @@ package com.project.undead;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.project.undead.screens.GameMainMenu;
+import com.project.undead.screens.GameOver;
 import com.project.undead.screens.GameScreen;
 
 public class GameClass extends Game {

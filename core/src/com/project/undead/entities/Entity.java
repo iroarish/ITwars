@@ -9,7 +9,18 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.project.undead.Control;
 import com.project.undead.Enums;
 
+import java.util.ArrayList;
+
 public abstract class Entity {
+
+    // Variables for Weapons
+    public float angle;
+    public boolean flipX;
+    public boolean flipY;
+    public boolean active;
+    public ArrayList weapons;
+
+    // For Enemies and Player
     public Vector3 pos;
     public Texture texture;
     public float width;
@@ -26,8 +37,14 @@ public abstract class Entity {
         pos = new Vector3();
     }
 
-    public void draw(SpriteBatch batch) {
-        batch.draw(texture, pos.x, pos.y, width, height);
+    // Reason why no entities spawn will fix later
+//    public void draw(SpriteBatch batch) {
+//    }
+
+    public void drawRotated(SpriteBatch batch) {
+        if (texture != null ) {
+            batch.draw(texture, pos.x, pos.y, 0, 0, width, height, 1, 1, angle, 0, 0, (int)width, (int)height, flipX, flipY);
+        }
     }
 
     public abstract void onHit();

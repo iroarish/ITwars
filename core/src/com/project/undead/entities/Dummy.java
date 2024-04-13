@@ -2,27 +2,25 @@ package com.project.undead.entities;
 
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.project.undead.Control;
 import com.project.undead.Enums;
 import com.project.undead.Media;
 import com.project.undead.collision.CollisionHelper;
 import com.project.undead.collision.MaskHelper;
-import com.project.undead.screens.TileMap;
+import com.project.undead.TileMap;
 
 public class Dummy extends Entity{
     MaskHelper maskHelper;
-    ENTITYSTAT STAT;
+    int playerDistance = 20;
 
     public Dummy(Vector3 pos) {
         super();
-        STAT = new ENTITYSTAT();
         maskHelper = new MaskHelper();
 
         // Enemy stuffswww
         type = Enums.ENTITYTYPE.DUMMY;
         width = 8;
         height = 8;
-        speed = STAT.DUMMY_SPEED;
+        speed = 9;
         this.pos.x = pos.x;
         this.pos.y = pos.y;
         texture = Media.dummy;
@@ -43,13 +41,13 @@ public class Dummy extends Entity{
         if (player.pos.x > this.pos.x) {
             dirX = 1;
         }
-        if (player.pos.x < this.pos.x) {
+        if (player.pos.x  < this.pos.x) {
             dirX = -1;
         }
-        if (player.pos.y < this.pos.y) {
+        if (player.pos.y  < this.pos.y) {
             dirY = -1;
         }
-        if (player.pos.y > this.pos.y) {
+        if (player.pos.y  > this.pos.y) {
             dirY = 1;
         }
 

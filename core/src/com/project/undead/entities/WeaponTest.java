@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.project.undead.Control;
 import com.project.undead.collision.CollisionHelper;
 import com.project.undead.collision.MaskHelper;
-import com.project.undead.screens.TileMap;
+import com.project.undead.TileMap;
 
 public class WeaponTest extends Entity{
     MaskHelper mask;
