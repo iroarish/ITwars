@@ -8,12 +8,15 @@ import com.project.undead.*;
 import com.project.undead.collision.CollisionHelper;
 import com.project.undead.collision.MaskHelper;
 import com.project.undead.screens.GameOver;
+import com.project.undead.entities.Melee;
 
 import java.util.ArrayList;
 
 public class Player extends Entity {
     GameClass game;
     MaskHelper maskHelper;
+    Melee melee;
+    public Vector3 cameraPos;
 
     // Player stats
     public int HITPOINTS = 6;
@@ -25,6 +28,7 @@ public class Player extends Entity {
 
         // Player Stuffs
         type = Enums.ENTITYTYPE.PLAYER;
+        cameraPos = new Vector3();
         width = 8;
         height = 8;
         this.pos.x = pos.x;
@@ -32,9 +36,7 @@ public class Player extends Entity {
         texture = Media.player;
         speed = SPEED;
         body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.MYPLAYER, maskHelper.PLAYER_MASK, this);
-
-        weapons = new ArrayList();
-        weapons.add(new Melee(1, -1, 7));
+        melee  = new Melee(1, -1, 7);
     }
 
     public void update(Control control) {
@@ -60,6 +62,15 @@ public class Player extends Entity {
         body.setLinearVelocity(dirX * speed, dirY * speed);
         pos.x = body.getPosition().x - width / 2;
         pos.y = body.getPosition().y - height / 4;
+
+        cameraPos.set(pos);
+        cameraPos.x += width / 2;
+    }
+
+    @Override
+    public void draw(SpriteBatch batch) {
+        if (texture != null) batch.draw(texture, pos.x, pos.y, width, height);
+        melee.drawRotated(batch);
     }
 
 

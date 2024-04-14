@@ -9,7 +9,6 @@ public class Media {
 
     public static void loadMedia() {
 
-        // Player
         player = new Texture("Entities/Player.png");
         dummy = new Texture("Entities/Dummy.png");
         weapon1 = new Texture("Weapons/Weapon1.png");
@@ -18,6 +17,8 @@ public class Media {
     }
 
     private void dispose() {
+        weapon1.dispose();
+        weapon2.dispose();
         player.dispose();
         dummy.dispose();
     }

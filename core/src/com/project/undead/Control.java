@@ -18,12 +18,16 @@ public class Control extends InputAdapter implements InputProcessor {
     public boolean left;
     public boolean right;
 
+    // Action of Users
+    public float angle;
+
     // Mouse
     public boolean LMB;
     public boolean RMB;
     public boolean processed_click;
     public Vector2 mouseClickPos = new Vector2();
     public Vector2 mapClickPos = new Vector2();
+    public Vector2 mousePos = new Vector2();
 
     public boolean debug = false;
 
@@ -139,6 +143,13 @@ public class Control extends InputAdapter implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
+        float flippedY = screenHeight - screenY;
+        mousePos.set(screenX, flippedY);
+
+        // Setting the angle of mouse
+        angle = (float) Math.toDegrees(Math.atan2(screenX - (screenWidth/2), screenY - (screenHeight/2)));
+        angle = angle < 0 ? angle += 360: angle;
+
         return false;
     }
 

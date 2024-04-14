@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.project.undead.*;
 import com.project.undead.entities.Dummy;
+import com.project.undead.entities.Melee;
 import com.project.undead.entities.Player;
 import com.project.undead.entities.WeaponTest;
 
@@ -32,6 +33,7 @@ public class GameScreen implements Screen {
     private int displayW;
     private int displayH;
     Control control;
+    Melee melee;
     Player player;
     WeaponTest weaponTest;
 
@@ -78,6 +80,7 @@ public class GameScreen implements Screen {
         Media.loadMedia();
 
         // HUH? ANO TO?
+        melee  = new Melee(1, -1, 7);
         player = new Player(tileMap.getCenterTile());
         weaponTest = new WeaponTest(player.pos);
         tileMap.addEntities();
@@ -95,9 +98,9 @@ public class GameScreen implements Screen {
 
         player.update(control);
         weaponTest.update(player, control);
-        for (Dummy e : tileMap.entities) {
-            e.update(player);
-        }
+//        for (Dummy e : tileMap.entities) {
+//            e.update(player);
+//        }
         camera.position.lerp(player.pos, .1f);
 
         // Di permanent???

@@ -38,14 +38,14 @@ public abstract class Entity {
     }
 
     // Reason why no entities spawn will fix later
-//    public void draw(SpriteBatch batch) {
-//    }
+    public void draw(SpriteBatch batch) {
+        batch.draw(texture, pos.x, pos.y, width, height);
+    }
 
     public void drawRotated(SpriteBatch batch) {
-        if (texture != null ) {
-            batch.draw(texture, pos.x, pos.y, 0, 0, width, height, 1, 1, angle, 0, 0, (int)width, (int)height, flipX, flipY);
-        }
+        batch.draw(texture, pos.x, pos.y, 0, 0, width, height, 1, 1, angle, 0, 0, (int) width, (int) height, flipX, flipY);
     }
+
 
     public abstract void onHit();
 }

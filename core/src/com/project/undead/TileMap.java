@@ -77,7 +77,7 @@ public class TileMap {
         MapLayer mapLayer = tiledMap.getLayers().get("Grass");
         TiledMapTileLayer grass = (TiledMapTileLayer) mapLayer;
 
-        int limit = 100;
+        int limit = 5;
         int counter = 0;
 
 
@@ -87,7 +87,7 @@ public class TileMap {
                 TiledMapTileLayer.Cell cell = grass.getCell(x, y);
                 Vector3 pos = new Vector3(x * ((TiledMapTileLayer) mapLayer).getTileWidth(), y * ((TiledMapTileLayer) mapLayer).getTileHeight(), 0);
                 if (cell != null) {
-                    if (MathUtils.random(100) > 50 && counter < limit) {
+                    if (MathUtils.random(100) > 90 && counter < limit) {
                         dummy = new Dummy(pos);
                         entities.add(dummy);
                         counter++;

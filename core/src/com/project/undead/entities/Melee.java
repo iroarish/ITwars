@@ -24,7 +24,6 @@ public class Melee extends Entity{
 
     @Override
     public void drawRotated(SpriteBatch batch) {
-//        super.drawRotated(batch);
 
         if (angle > 90 && angle < 270) {
             xPos = xMinPos; // To Left
