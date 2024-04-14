@@ -63,6 +63,9 @@ public class Player extends Entity {
         pos.x = body.getPosition().x - width / 2;
         pos.y = body.getPosition().y - height / 4;
 
+        melee.updatePos(pos.x, pos.y);
+        melee.angle = control.angle - 90;
+
         cameraPos.set(pos);
         cameraPos.x += width / 2;
     }

@@ -20,6 +20,7 @@ public class Control extends InputAdapter implements InputProcessor {
 
     // Action of Users
     public float angle;
+    public int direction;
 
     // Mouse
     public boolean LMB;
@@ -149,6 +150,8 @@ public class Control extends InputAdapter implements InputProcessor {
         // Setting the angle of mouse
         angle = (float) Math.toDegrees(Math.atan2(screenX - (screenWidth/2), screenY - (screenHeight/2)));
         angle = angle < 0 ? angle += 360: angle;
+
+        direction = (int) Math.floor((angle / 45) + 0.5) & 7;
 
         return false;
     }

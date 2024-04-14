@@ -46,6 +46,13 @@ public abstract class Entity {
         batch.draw(texture, pos.x, pos.y, 0, 0, width, height, 1, 1, angle, 0, 0, (int) width, (int) height, flipX, flipY);
     }
 
+    public void updatePos(float x, float y) {
+        if (pos != null) {
+            pos.x = x;
+            pos.y = y;
+        }
+    }
+
 
     public abstract void onHit();
 }

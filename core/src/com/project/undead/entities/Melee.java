@@ -35,6 +35,8 @@ public class Melee extends Entity{
 
         if (texture != null) {
             batch.draw(texture, pos.x + xPos, pos.y, originXOffset, originYOffset, width, height, 1, 1, angle, 0, 0, (int)width, (int)height, flipX, flipY);
+        } else {
+            System.out.println("Melee texture is null");
         }
     }
 
