@@ -59,6 +59,11 @@ public class Player extends Entity {
         pos.x += dirX * speed;
         pos.y += dirY * speed;
 
+        float c = (float) Math.sqrt((pos.x * 2) + (pos.y * 2));
+
+        pos.x = pos.x / c;
+        pos.y = pos.y / c;
+
         body.setLinearVelocity(dirX * speed, dirY * speed);
         pos.x = body.getPosition().x - width / 2;
         pos.y = body.getPosition().y - height / 4;

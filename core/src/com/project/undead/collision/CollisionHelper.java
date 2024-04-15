@@ -78,8 +78,7 @@ public class CollisionHelper {
         BodyDef bdef = new BodyDef();
         bdef.position.set(pos.x, pos.y);
         bdef.angle = 0;
-        bdef.fixedRotation = true;
-        bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.type = BodyDef.BodyType.KinematicBody;
         body = world.createBody(bdef);
 
         FixtureDef hitboxDef = new FixtureDef();
