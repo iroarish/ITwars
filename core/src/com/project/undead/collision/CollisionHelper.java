@@ -41,7 +41,6 @@ public class CollisionHelper {
 
         hitboxFixture.shape = hitbox;
         hitboxFixture.isSensor = true;
-//        fixtureDef.restitution = 0.4f;
 
         body.createFixture(hitboxFixture).setUserData(id);;
         hitbox.dispose();
@@ -73,12 +72,12 @@ public class CollisionHelper {
         return body;
     }
 
-    public static Body weaponHitbox(World world, float width, float height, Vector3 pos, short mask) {
+    public static Body weaponHitbox(World world, float width, float height, Vector3 pos,short collideWith, Entity id) {
         Body body;
         BodyDef bdef = new BodyDef();
         bdef.position.set(pos.x, pos.y);
         bdef.angle = 0;
-        bdef.type = BodyDef.BodyType.KinematicBody;
+        bdef.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(bdef);
 
         FixtureDef hitboxDef = new FixtureDef();
@@ -87,14 +86,9 @@ public class CollisionHelper {
 
         hitboxDef.shape = hitbox;
         hitboxDef.isSensor = true;
+        hitboxDef.filter.maskBits = collideWith;
 
-        FixtureDef physicalDef = new FixtureDef();
-
-        physicalDef.shape = hitbox;
-        physicalDef.filter.maskBits = mask;
-
-        body.createFixture(hitboxDef);
-        body.createFixture(physicalDef);
+        body.createFixture(hitboxDef).setUserData(id);
         hitbox.dispose();
 
         return body;

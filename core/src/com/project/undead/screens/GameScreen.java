@@ -90,10 +90,10 @@ public class GameScreen implements Screen {
         TileMap.world.step(Gdx.graphics.getDeltaTime(), 8, 3);
 
 
-        player.update(control);
-//        for (Dummy e : tileMap.entities) {
-//            e.update(player);
-//        }
+        player.update(control, TileMap.world);
+        for (Dummy e : tileMap.entities) {
+            e.update(player);
+        }
         camera.position.lerp(player.pos, .1f);
 
         // Di permanent???
@@ -124,6 +124,8 @@ public class GameScreen implements Screen {
         }
 
         game.batch.end();
+
+        player.clearBullets(TileMap.world);
 
         tileMap.tick(camera, control);
 

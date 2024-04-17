@@ -6,6 +6,8 @@ public class Media {
     public static Texture player;
     public static Texture dummy;
     public static Texture weapon1, weapon2;
+    public static Texture rangeWeapon;
+    public static Texture folderBullet;
 
     public static void loadMedia() {
 
@@ -13,6 +15,8 @@ public class Media {
         dummy = new Texture("Entities/Dummy.png");
         weapon1 = new Texture("Weapons/Weapon1.png");
         weapon2 = new Texture("Weapons/Weapon2.png");
+        rangeWeapon = new Texture("Weapons/RangeWeapon.png");
+        folderBullet = new Texture("Weapons/FolderBullet.png");
 
     }
 
@@ -21,6 +25,8 @@ public class Media {
         weapon2.dispose();
         player.dispose();
         dummy.dispose();
+        rangeWeapon.dispose();
+        folderBullet.dispose();
     }
 
 }
