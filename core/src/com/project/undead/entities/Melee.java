@@ -42,17 +42,6 @@ public class Melee extends Entity{
         this.xMinPos = xMinRight;
     }
 
-//    public void updateAttack(Vector3 playerPos, Control control) {
-//        // ToDo set transformation of collision of melee with setVelocity and setAngular
-//
-//        if (angle < 0) {
-//            angle += 360;
-//        }
-//
-//
-//
-//    }
-
     public void updateAttack(Vector3 playerPos, Control control) {
 
         getCompass();  // Checking the angle of mouse Then Assign N, S, E, W and more per mouse angles

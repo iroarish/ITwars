@@ -9,6 +9,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.project.undead.*;
 import com.project.undead.collision.CollisionHelper;
 import com.project.undead.collision.MaskHelper;
+import com.project.undead.entities.ammo.Ammo;
+import com.project.undead.entities.ammo.BulletFolder;
 import com.project.undead.screens.GameOver;
 import com.project.undead.entities.Melee;
 
@@ -43,6 +45,7 @@ public class Player extends Entity {
         texture = Media.player;
         speed = SPEED;
         body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.MYPLAYER, maskHelper.PLAYER_MASK, this);
+        ammoArray = new ArrayList<Ammo>();
         melee  = new Melee(1, -1, 7);
         ranged = new Ranged(1, -1, 7);
     }
@@ -79,6 +82,12 @@ public class Player extends Entity {
         if (switchWeapon == rangedWeapon) {
             ranged.updatePos(pos.x, pos.y);
             ranged.angle = control.angle - 90;
+            if (control.RMB && ranged.ammoCount > 0) {
+
+                BulletFolder folder = new BulletFolder(ranged, TileMap.world);
+                ranged.addActiveAmmo(folder);
+                control.RMB = false;
+            }
         } else if (switchWeapon == meleeWeapon) {
             melee.updatePos(pos.x, pos.y);
             melee.angle = control.angle - 90;
@@ -87,6 +96,10 @@ public class Player extends Entity {
 
         cameraPos.set(pos);
         cameraPos.x += width / 2;
+    }
+
+    public void clearAmmo(World world) {
+        ranged.clearShootedAmmo(world);
     }
 
     @Override
