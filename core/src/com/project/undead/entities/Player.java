@@ -20,7 +20,9 @@ public class Player extends Entity {
     MaskHelper maskHelper;
     Melee melee;
     Ranged ranged;
-    boolean switchWeapon = false;
+    int meleeWeapon = 0;
+    int rangedWeapon = 1;
+    int switchWeapon = meleeWeapon;
     public Vector3 cameraPos;
 
     // Player stats
@@ -74,10 +76,12 @@ public class Player extends Entity {
         pos.x = body.getPosition().x - width / 2;
         pos.y = body.getPosition().y - height / 4;
 
-        if (!switchWeapon) {
+        if (switchWeapon == rangedWeapon) {
             ranged.updatePos(pos.x, pos.y);
             ranged.angle = control.angle - 90;
-        } else if (switchWeapon) {
+        } else if (switchWeapon == meleeWeapon) {
+            melee.updatePos(pos.x, pos.y);
+            melee.angle = control.angle - 90;
             melee.updateAttack(pos, control);
         }
 
@@ -88,9 +92,9 @@ public class Player extends Entity {
     @Override
     public void draw(SpriteBatch batch) {
         if (texture != null) batch.draw(texture, pos.x, pos.y, width, height);
-        if (!switchWeapon) {
+        if (switchWeapon == rangedWeapon) {
             ranged.drawRotated(batch);
-        } else if (switchWeapon) {
+        } else if (switchWeapon == meleeWeapon) {
             melee.drawRotated(batch);
         }
     }

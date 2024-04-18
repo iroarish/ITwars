@@ -15,6 +15,13 @@ public class ContactChecker implements ContactListener {
         Fixture fixB = contact.getFixtureB();
 
         if (fixA == null || fixB == null) return;
+        if (fixA.getUserData() == null || fixB.getUserData() == null) return;
+
+        if (fixA.getUserData() instanceof Melee && fixB.getUserData() instanceof Dummy) {
+            ((Entity) fixB.getUserData()).onHit();
+        } else if (fixB.getUserData() instanceof Melee && fixA.getUserData() instanceof Dummy) {
+            ((Entity) fixA.getUserData()).onHit();
+        }
 
 
         if (fixA.getUserData() instanceof Melee) {

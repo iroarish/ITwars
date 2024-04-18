@@ -10,7 +10,9 @@ import com.project.undead.TileMap;
 
 public class Dummy extends Entity{
     MaskHelper maskHelper;
-    int playerDistance = 20;
+
+    // DUMMY OR ENEMY HP
+    int HITPOINTS = 5;
 
     public Dummy(Vector3 pos) {
         super();
@@ -67,5 +69,7 @@ public class Dummy extends Entity{
     @Override
     public void onHit() {
         System.out.println("Dummy hit!");
+        HITPOINTS--;
+        System.out.println("Current Dummy HP: " + HITPOINTS);
     }
 }

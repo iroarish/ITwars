@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.project.undead.entities.Entity;
+import com.project.undead.entities.Melee;
 
 public class CollisionHelper {
 
@@ -72,10 +73,11 @@ public class CollisionHelper {
         return body;
     }
 
-    public static Body weaponHitbox(World world, float width, float height, Vector3 pos,short collideWith, Entity id) {
+    public static Body weaponHitbox(World world, float width, float height, Vector3 pos, short categoryBits, short collideWith, Melee id) {
         Body body;
         BodyDef bdef = new BodyDef();
         bdef.position.set(pos.x, pos.y);
+        bdef.fixedRotation = false;
         bdef.angle = 0;
         bdef.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(bdef);
@@ -85,8 +87,7 @@ public class CollisionHelper {
         hitbox.setAsBox(width, height);
 
         hitboxDef.shape = hitbox;
-        hitboxDef.isSensor = true;
-        hitboxDef.filter.maskBits = collideWith;
+//        hitboxDef.isSensor = true;
 
         body.createFixture(hitboxDef).setUserData(id);
         hitbox.dispose();

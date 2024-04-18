@@ -33,7 +33,8 @@ public class Melee extends Entity{
         texture = Media.weapon1;
         width = texture.getWidth();
         height = texture.getHeight();
-        body = CollisionHelper.weaponHitbox(TileMap.world, texture.getWidth() / 2f, texture.getHeight() / 2f, pos, mask.DUMMIES, this);
+        body = CollisionHelper.weaponHitbox(TileMap.world, texture.getWidth() / 2f, texture.getHeight() / 2f, pos, mask.MELEE, mask.DUMMIES, this);
+        body.setActive(false);
         active = true;
         originYOffset = height / 2;
         this.originXOffset = originXOffset;
@@ -41,16 +42,27 @@ public class Melee extends Entity{
         this.xMinPos = xMinRight;
     }
 
+//    public void updateAttack(Vector3 playerPos, Control control) {
+//        // ToDo set transformation of collision of melee with setVelocity and setAngular
+//
+//        if (angle < 0) {
+//            angle += 360;
+//        }
+//
+//
+//
+//    }
+
     public void updateAttack(Vector3 playerPos, Control control) {
 
         getCompass();  // Checking the angle of mouse Then Assign N, S, E, W and more per mouse angles
         updateMeleeCollision(playerPos); // Update the location of body collision based on the assigned compass
 
         if (control.LMB) {
-            body.setAwake(true);
+            body.setActive(true);
+        } else {
+            body.setActive(false);
         }
-
-        System.out.println(body.isAwake());
 
 
 
@@ -88,31 +100,22 @@ public class Melee extends Entity{
 
         if (22.5 > angle && angle > 0 || angle > 337.5 && angle < 360) {
             compass = E; // East
-            System.out.println("East");
         } else if (67.5 > angle && angle > 22.5) {
             compass = NE; // North-East
-            System.out.println("North-East");
         } else if (112.4 > angle && angle > 67.5) {
             compass = N; // North
-            System.out.println("North");
         } else if (157.5 > angle && angle > 112.5) {
             compass = NW; // North-West
-            System.out.println("North-West");
         } else if (202.5 > angle && angle > 157.5) {
             compass = W; // West
-            System.out.println("West");
         } else if (247.5 > angle && angle > 202.5) {
             compass = SW; // South-West
-            System.out.println("South-West");
         } else if (292.5 > angle && angle > 247.5) {
             compass = S; // South
-            System.out.println("South");
         } else if (337.5 > angle && angle > 292.5) {
             compass = SE;
-            System.out.println("South-East");
         }
 
-        System.out.println(compass);
     }
 
     @Override
