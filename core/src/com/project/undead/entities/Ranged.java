@@ -1,5 +1,6 @@
 package com.project.undead.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.World;
 import com.project.undead.Media;
@@ -28,6 +29,7 @@ public class Ranged extends Entity{
         this.originXOffset = originXOffset;
         this.xMaxPos = xMaxRight;
         this.xMinPos = xMinRight;
+        activeAmmo = new ArrayList<Ammo>();
     }
 
     public void tick(float delta) {
@@ -45,6 +47,11 @@ public class Ranged extends Entity{
             // Todo Add a Window or a texture indicator that the there are no more ammo in the gun
         }
     }
+
+    public void addAmmo(int count) {
+        ammoCount += count;
+    }
+
 
     public void clearShootedAmmo(World world) {
         Iterator<Ammo> iterator = activeAmmo.iterator();
@@ -78,6 +85,11 @@ public class Ranged extends Entity{
             System.out.println("Ranged texture is null");
         }
 
+        // Bullet
+        for (Ammo a : activeAmmo) {
+            a.draw(batch);
+        }
+
         // Debugging Purposes
     }
 
@@ -88,13 +100,7 @@ public class Ranged extends Entity{
             pos.y = y;
         }
     }
-
-
-
-
-
-
-
+    
     @Override
     public void onHit() {
     }

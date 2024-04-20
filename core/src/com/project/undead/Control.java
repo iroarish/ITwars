@@ -17,6 +17,7 @@ public class Control extends InputAdapter implements InputProcessor {
     public boolean down;
     public boolean left;
     public boolean right;
+    public boolean weaponSwitch;
 
     // Action of Users
     public float angle;
@@ -103,6 +104,9 @@ public class Control extends InputAdapter implements InputProcessor {
                 break;
             case Input.Keys.G:
                 debug = !debug;
+                break;
+            case Input.Keys.Q:
+                weaponSwitch = !weaponSwitch;
                 break;
         }
         return false;

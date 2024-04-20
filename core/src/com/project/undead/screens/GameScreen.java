@@ -125,7 +125,7 @@ public class GameScreen implements Screen {
 
         game.batch.end();
 
-        player.clearBullets(TileMap.world);
+        player.clearAmmo(TileMap.world);
 
         tileMap.tick(camera, control);
 

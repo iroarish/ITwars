@@ -48,6 +48,7 @@ public class Player extends Entity {
         ammoArray = new ArrayList<Ammo>();
         melee  = new Melee(1, -1, 7);
         ranged = new Ranged(1, -1, 7);
+        ranged.addAmmo(10);
     }
 
     public void update(Control control, World world) {
@@ -79,20 +80,35 @@ public class Player extends Entity {
         pos.x = body.getPosition().x - width / 2;
         pos.y = body.getPosition().y - height / 4;
 
+        if (control.weaponSwitch == true) {
+            switchWeapon = meleeWeapon;
+        } else if (control.weaponSwitch == false) {
+            switchWeapon = rangedWeapon;
+        }
+
         if (switchWeapon == rangedWeapon) {
             ranged.updatePos(pos.x, pos.y);
             ranged.angle = control.angle - 90;
-            if (control.RMB && ranged.ammoCount > 0) {
+            if (control.LMB && ranged.ammoCount > 0) {
 
-                BulletFolder folder = new BulletFolder(ranged, TileMap.world);
+                BulletFolder folder = new BulletFolder(ranged, world);
                 ranged.addActiveAmmo(folder);
-                control.RMB = false;
+                control.LMB = false;
             }
+
+//            for (Ammo a : ranged.activeAmmo) {
+//                if (a.active) {
+//                    a.updatePos(pos.x, pos.y);
+//                }
+//            }
+
         } else if (switchWeapon == meleeWeapon) {
             melee.updatePos(pos.x, pos.y);
             melee.angle = control.angle - 90;
             melee.updateAttack(pos, control);
         }
+
+
 
         cameraPos.set(pos);
         cameraPos.x += width / 2;
@@ -107,15 +123,16 @@ public class Player extends Entity {
         if (texture != null) batch.draw(texture, pos.x, pos.y, width, height);
         if (switchWeapon == rangedWeapon) {
             ranged.drawRotated(batch);
+
+            for (Ammo b : ranged.activeAmmo) {
+                if (b.active) {
+                     b.tick(Gdx.graphics.getDeltaTime());
+                }
+            }
         } else if (switchWeapon == meleeWeapon) {
             melee.drawRotated(batch);
         }
     }
-
-    public void clearBullets(World world) {
-
-    }
-
 
     @Override
     public void onHit() {
