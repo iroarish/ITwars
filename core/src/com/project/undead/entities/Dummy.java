@@ -8,24 +8,25 @@ import com.project.undead.collision.CollisionHelper;
 import com.project.undead.collision.MaskHelper;
 import com.project.undead.TileMap;
 
-public class Dummy extends Entity{
+public class Dummy extends Enemy{
     MaskHelper maskHelper;
-
-    // DUMMY OR ENEMY HP
-    int HITPOINTS = 5;
 
     public Dummy(Vector3 pos) {
         super();
         maskHelper = new MaskHelper();
 
-        // Enemy stuffswww
+        // Dummy Stats
+        HITPOINTS = 5;
+        speed = 9;
+
+        // Dummy stuffswww
         type = Enums.ENTITYTYPE.DUMMY;
         width = 8;
         height = 8;
-        speed = 9;
         this.pos.x = pos.x;
         this.pos.y = pos.y;
         texture = Media.dummy;
+        remove = false;
         body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.DUMMIES, maskHelper.DUMMY_MASK, this);
         body.setAwake(true);
         //body.setSleepingAllowed(false);
@@ -64,6 +65,10 @@ public class Dummy extends Entity{
         body.setLinearVelocity(dirX * speed, dirY * speed);
         pos.x = body.getPosition().x - width / 2;
         pos.y = body.getPosition().y - height / 4;
+
+        if (HITPOINTS < 1) {
+            remove = true;
+        }
     }
 
     @Override

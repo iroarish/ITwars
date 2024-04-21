@@ -8,8 +8,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.project.undead.*;
 import com.project.undead.entities.Dummy;
+import com.project.undead.entities.Enemy;
 import com.project.undead.entities.Melee;
 import com.project.undead.entities.Player;
 
@@ -33,6 +35,9 @@ public class GameScreen implements Screen {
     Player player;
 
     GameClass game;
+
+    // Elapsed time
+    long startTime = TimeUtils.millis();
 
     public GameScreen(GameClass game) {
         this.game = game;
@@ -77,6 +82,7 @@ public class GameScreen implements Screen {
         // HUH? ANO TO?
         melee  = new Melee(1, -1, 7);
         player = new Player(tileMap.getCenterTile());
+
         tileMap.addEntities();
     }
 
@@ -89,9 +95,16 @@ public class GameScreen implements Screen {
 
         TileMap.world.step(Gdx.graphics.getDeltaTime(), 8, 3);
 
+        float endTime = TimeUtils.timeSinceMillis(startTime) / 1000;
+
+        if (endTime > 5) {
+            tileMap.addEntities();
+            startTime = TimeUtils.millis();
+        }
+
 
         player.update(control, TileMap.world);
-        for (Dummy e : tileMap.entities) {
+        for (Enemy e : tileMap.entities) {
             e.update(player);
         }
         camera.position.lerp(player.pos, .1f);
@@ -119,15 +132,19 @@ public class GameScreen implements Screen {
         }
 
         player.draw(game.batch);
-        for (Dummy e : tileMap.entities) {
+        for (Enemy e : tileMap.entities) {
             e.draw(game.batch);
         }
 
         game.batch.end();
 
+        // Clears entity or bullet in world
         player.clearAmmo(TileMap.world);
+        tileMap.clearDeadEnemy();
 
         tileMap.tick(camera, control);
+
+        // Debugging Purposes
 
     }
 

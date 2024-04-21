@@ -24,18 +24,6 @@ public class ContactChecker implements ContactListener {
         }
 
 
-        if (fixA.getUserData() instanceof Melee) {
-            System.out.println("This is the melee attack");
-        } else if (fixB.getUserData() instanceof Melee) {
-            System.out.println("This is the melee attack");
-        }
-
-//        if (fixA.getUserData() instanceof Melee && fixB.getUserData() instanceof Dummy) {
-//            ((Entity) fixB.getUserData()).onHit();
-//        } else if (fixA.getUserData() instanceof Dummy && fixB.getUserData() instanceof Melee) {
-//            ((Entity) fixA.getUserData()).onHit();
-//        }
-
         if (fixA.getUserData() instanceof Player) {
             ((Entity) fixA.getUserData()).onHit();
         } else if (fixB.getUserData() instanceof Player) {

@@ -16,17 +16,25 @@ import com.project.undead.collision.CollisionHelper;
 import com.project.undead.collision.ContactChecker;
 import com.project.undead.collision.MaskHelper;
 import com.project.undead.entities.Dummy;
+import com.project.undead.entities.Enemy;
+import com.project.undead.entities.ammo.Ammo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class TileMap {
     private TiledMap tiledMap;
     private TiledMapTileLayer tileLayer;
     public static World world;
     private final Box2DDebugRenderer debugRenderer;
-    public ArrayList<Dummy> entities = new ArrayList<Dummy>();
-    public Dummy dummy;
     public MaskHelper maskHelper;
+
+    // Enemy Thingies
+    public ArrayList<Enemy> entities = new ArrayList<Enemy>();
+    public Dummy dummy;
+
+    // Time Elapsed
+    float beginTime = Gdx.graphics.getDeltaTime();
 
     public TileMap() {
 
@@ -96,6 +104,19 @@ public class TileMap {
             }
 
 
+        }
+    }
+
+    public void clearDeadEnemy() {
+        Iterator<Enemy> iterator = entities.iterator();
+
+        while(iterator.hasNext()) {
+            Enemy a = iterator.next();
+            if (a.remove) {
+                a.removeBodies(world);
+
+                iterator.remove();
+            }
         }
     }
 }
