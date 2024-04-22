@@ -39,6 +39,7 @@ public class GameScreen implements Screen {
     // Elapsed time
     long startTime = TimeUtils.millis();
 
+    // Public Variables
     public GameScreen(GameClass game) {
         this.game = game;
     }

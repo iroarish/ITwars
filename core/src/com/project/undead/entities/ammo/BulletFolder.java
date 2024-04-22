@@ -54,6 +54,6 @@ public class BulletFolder extends Ammo {
         pos.x = ranged.pos.x + (vector.x * 10);
         pos.y = ranged.pos.y + (vector.y * 10);
 
-        sensor = CollisionHelper.createSensor(world, width, height * .85f, width / 2, height / 3, pos, BodyDef.BodyType.DynamicBody);
+        sensor = CollisionHelper.createSensor(world, width, height * .85f, width / 2, height / 3, pos, BodyDef.BodyType.DynamicBody, this);
     }
 }

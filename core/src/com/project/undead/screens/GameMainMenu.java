@@ -21,6 +21,8 @@ public class GameMainMenu implements Screen {
     Control control;
 
     // Variable for Positions
+    float quitButtonX;
+    float quitButtonY;
     float playButtonX;
     float playButtonY;
     float mouseX;
@@ -35,11 +37,14 @@ public class GameMainMenu implements Screen {
         activePlayButton = new Texture("UI/ActivePlayButton.png");
         activeQuitButton = new Texture("UI/ActiveQuitButton.png");
         title = new Texture("UI/Title.png");
+        System.out.println(title.getWidth() + " " + title.getHeight());
         control = new Control(screen.SCREENWIDTH, screen.SCREENHEIGHT);
 
         // Variable for Positions
         playButtonX = (screen.SCREENWIDTH - activePlayButton.getWidth()) / 2f;
         playButtonY = screen.SCREENHEIGHT / 2.8f;
+        quitButtonX = (screen.SCREENWIDTH - activePlayButton.getWidth()) / 2f;
+        quitButtonY = screen.SCREENHEIGHT / 3.9f;
     }
 
     @Override
@@ -59,10 +64,7 @@ public class GameMainMenu implements Screen {
 
         game.batch.draw(title, (screen.SCREENWIDTH - title.getWidth()) / 2f, screen.SCREENHEIGHT / 1.5f);
 
-
-
-        game.batch.draw(quitButton, (screen.SCREENWIDTH - quitButton.getWidth()) / 2f, screen.SCREENHEIGHT / 3.9f);
-
+        // Play button stuffs
         if (mouseX > playButtonX && mouseX < (playButtonX + activePlayButton.getWidth()) && mouseY > playButtonY * 1.6f && mouseY < (playButtonY * 1.6) + playButton.getHeight()) {
             game.batch.draw(activePlayButton, playButtonX, playButtonY);
 
@@ -73,6 +75,19 @@ public class GameMainMenu implements Screen {
             }
         } else {
             game.batch.draw(playButton, playButtonX, playButtonY);
+        }
+
+        // Quit Button Stuffs
+        if (mouseX > playButtonX && mouseX < (quitButtonX + activeQuitButton.getWidth()) && mouseY > quitButtonY * 2.6f && mouseY < (quitButtonY * 2.6) + quitButton.getHeight()) {
+            game.batch.draw(activeQuitButton, quitButtonX, quitButtonY);
+
+            if (control.isClicked()) {
+                this.dispose();
+                Gdx.app.exit();
+            }
+
+        } else {
+            game.batch.draw(quitButton, (screen.SCREENWIDTH - quitButton.getWidth()) / 2f, quitButtonY);
         }
 
         game.batch.end();
@@ -99,6 +114,5 @@ public class GameMainMenu implements Screen {
 
     @Override
     public void dispose() {
-//        game.batch.dispose();
     }
 }

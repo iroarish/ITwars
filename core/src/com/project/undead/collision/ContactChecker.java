@@ -2,10 +2,8 @@ package com.project.undead.collision;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
-import com.project.undead.entities.Dummy;
-import com.project.undead.entities.Entity;
-import com.project.undead.entities.Melee;
-import com.project.undead.entities.Player;
+import com.project.undead.entities.*;
+import com.project.undead.entities.ammo.Ammo;
 
 public class ContactChecker implements ContactListener {
 
@@ -17,16 +15,16 @@ public class ContactChecker implements ContactListener {
         if (fixA == null || fixB == null) return;
         if (fixA.getUserData() == null || fixB.getUserData() == null) return;
 
-        if (fixA.getUserData() instanceof Melee && fixB.getUserData() instanceof Dummy) {
+        if (fixA.getUserData() instanceof Melee || fixA.getUserData() instanceof Ammo && fixB.getUserData() instanceof Enemy) {
             ((Entity) fixB.getUserData()).onHit();
-        } else if (fixB.getUserData() instanceof Melee && fixA.getUserData() instanceof Dummy) {
+        } else if (fixB.getUserData() instanceof Melee || fixB.getUserData() instanceof Ammo && fixA.getUserData() instanceof Enemy) {
             ((Entity) fixA.getUserData()).onHit();
         }
 
 
-        if (fixA.getUserData() instanceof Player) {
+        if (fixA.getUserData() instanceof Player && fixB.getUserData() instanceof Enemy) {
             ((Entity) fixA.getUserData()).onHit();
-        } else if (fixB.getUserData() instanceof Player) {
+        } else if (fixB.getUserData() instanceof Player && fixA.getUserData() instanceof Enemy) {
             ((Entity) fixB.getUserData()).onHit();
         }
     }

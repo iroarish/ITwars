@@ -8,7 +8,7 @@ public class MaskHelper {
 
 
     public final short PLAYER_MASK = SCENE;
-    public final short DUMMY_MASK = DUMMIES | SCENE | MELEE;
+    public final short DUMMY_MASK = DUMMIES | MELEE;
     public final short SCENE_MASK = -1;
     public final short MELEE_MASK = DUMMIES;
 }

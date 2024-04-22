@@ -1,18 +1,23 @@
 package com.project.undead.entities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.loaders.AssetLoader;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.project.undead.Control;
-import com.project.undead.Media;
-import com.project.undead.ScreenSize;
-import com.project.undead.TileMap;
+import com.badlogic.gdx.utils.TimeUtils;
+import com.project.undead.*;
 import com.project.undead.collision.CollisionHelper;
 import com.project.undead.collision.MaskHelper;
 
 public class Melee extends Entity{
     MaskHelper mask = new MaskHelper();
+    long startTime = TimeUtils.millis();
 
     float originXOffset;
     float originYOffset;
@@ -28,7 +33,9 @@ public class Melee extends Entity{
     int SW = 7;
     int SE = 8;
     int compass = 0;
+    float weaponAngle;
 
+    // Variables for Melee Animation
     public Melee(float originXOffset, float xMinRight, float xMaxRight) {
         texture = Media.weapon1;
         width = texture.getWidth();
@@ -40,6 +47,11 @@ public class Melee extends Entity{
         this.originXOffset = originXOffset;
         this.xMaxPos = xMaxRight;
         this.xMinPos = xMinRight;
+
+        // So Melee weapon can start immediately with no delay after booting the game
+        startTime = 3;
+
+        // Melee Animation
     }
 
     public void updateAttack(Vector3 playerPos, Control control) {
@@ -47,15 +59,12 @@ public class Melee extends Entity{
         getCompass();  // Checking the angle of mouse Then Assign N, S, E, W and more per mouse angles
         updateMeleeCollision(playerPos); // Update the location of body collision based on the assigned compass
 
-        if (control.LMB) {
+        // Update for time
+        if (control.LMB && getTimePassed(startTime) > 3) {
             body.setActive(true);
         } else {
             body.setActive(false);
         }
-
-
-
-
         // Then if Player clicked attack button
         // Set the texture to the animation then set the body collision to Active
         // When the animation stopped set the body to inactive again.
@@ -64,18 +73,25 @@ public class Melee extends Entity{
     public void updateMeleeCollision(Vector3 playerPos) {
         if (compass == NE) {
             body.setTransform(playerPos.x + 25, playerPos.y + 25, 90f);
+            weaponAngle = 90f;
         } else if (compass == N) {
             body.setTransform(playerPos.x, playerPos.y + 25, 0f);
+            weaponAngle = 0f;
         } else if (compass == NW) {
             body.setTransform(playerPos.x - 25, playerPos.y + 25, 180f);
+            weaponAngle = 180f;
         } else if (compass == W) {
             body.setTransform(playerPos.x - 25, playerPos.y, 67.55f);
+            weaponAngle = 67.55f;
         } else if (compass == SW) {
             body.setTransform(playerPos.x - 25, playerPos.y - 25, 90f);
+            weaponAngle = 90f;
         } else if (compass == S) {
             body.setTransform(playerPos.x, playerPos.y - 25, 0f);
+            weaponAngle = 0f;
         } else if (compass == SE) {
             body.setTransform(playerPos.x + 25, playerPos.y - 25, 180f);
+            weaponAngle = 180f;
         } else if (compass == E) {
             body.setTransform(playerPos.x + 25, playerPos.y, 67.55f);
         }
@@ -103,6 +119,7 @@ public class Melee extends Entity{
             compass = S; // South
         } else if (337.5 > angle && angle > 292.5) {
             compass = SE;
+            weaponAngle = 67.55f;
         }
 
     }
@@ -110,19 +127,24 @@ public class Melee extends Entity{
     @Override
     public void drawRotated(SpriteBatch batch) {
 
-        if (angle > 90 && angle < 270) {
-            xPos = xMinPos; // To Left
-            flipY = true;
+        if (body.isActive()) {
+            System.out.println("Melee Attack");
+            startTime = TimeUtils.millis();
+            // For Melee Animation
         } else {
-            xPos = xMaxPos; // To Right
-            flipY = false;
-        }
+            if (angle > 90 && angle < 270) {
+                xPos = xMinPos; // To Left
+                flipY = true;
+            } else {
+                xPos = xMaxPos; // To Right
+                flipY = false;
+            }
 
-
-        if (texture != null) {
-            batch.draw(texture, pos.x + xPos, pos.y, originXOffset, originYOffset, width, height, 1, 1, angle, 0, 0, (int)width, (int)height, flipX, flipY);
-        } else {
-            System.out.println("Melee texture is null");
+            if (texture != null) {
+                batch.draw(texture, pos.x + xPos, pos.y, originXOffset, originYOffset, width, height, 1, 1, angle, 0, 0, (int) width, (int) height, flipX, flipY);
+            } else {
+                System.out.println("Melee texture is null");
+            }
         }
 
         // Debugging Purposes

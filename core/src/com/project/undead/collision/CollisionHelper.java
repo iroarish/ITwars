@@ -95,7 +95,7 @@ public class CollisionHelper {
         return body;
     }
 
-    public static Body createSensor(World world, float width, float height, float xOffset, float yOffset, Vector3 pos, BodyDef.BodyType type) {
+    public static Body createSensor(World world, float width, float height, float xOffset, float yOffset, Vector3 pos, BodyDef.BodyType type, Entity id) {
         Body body;
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.x = pos.x + xOffset;
@@ -112,7 +112,7 @@ public class CollisionHelper {
         fixtureDef.shape=boxShape;
         fixtureDef.isSensor = true;
 
-        body.createFixture(fixtureDef);
+        body.createFixture(fixtureDef).setUserData(id);
         boxShape.dispose();
 
         return body;

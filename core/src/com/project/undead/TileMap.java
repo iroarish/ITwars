@@ -65,7 +65,8 @@ public class TileMap {
     }
 
     public OrthogonalTiledMapRenderer setupMap() {
-        tiledMap = new TmxMapLoader().load("Beta/TileMap/NewMap.tmx");
+//        tiledMap = new TmxMapLoader().load("Beta/TileMap/NewMap.tmx");
+        tiledMap = new TmxMapLoader().load("Maps/ptc.tmx");
         return new OrthogonalTiledMapRenderer(tiledMap);
     }
 
@@ -82,10 +83,10 @@ public class TileMap {
     }
     public void addEntities() {
 
-        MapLayer mapLayer = tiledMap.getLayers().get("Grass");
+        MapLayer mapLayer = tiledMap.getLayers().get("Playable");
         TiledMapTileLayer grass = (TiledMapTileLayer) mapLayer;
 
-        int limit = 5;
+        int limit = 10;
         int counter = 0;
 
 

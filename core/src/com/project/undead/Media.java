@@ -8,6 +8,7 @@ public class Media {
     public static Texture weapon1, weapon2;
     public static Texture rangeWeapon;
     public static Texture folderBullet;
+    public static Texture weaponAnimation;
 
     public static void loadMedia() {
 
@@ -17,6 +18,7 @@ public class Media {
         weapon2 = new Texture("Weapons/Weapon2.png");
         rangeWeapon = new Texture("Weapons/RangeWeapon.png");
         folderBullet = new Texture("Weapons/FolderBullet.png");
+        weaponAnimation = new Texture("Weapons/MeleeAttackAnimation.png");
 
     }
 

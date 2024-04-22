@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.project.undead.Control;
 import com.project.undead.Enums;
 import com.project.undead.entities.ammo.Ammo;
@@ -60,6 +61,10 @@ public abstract class Entity {
     public void removeBodies(World world) {
         if (sensor != null) world.destroyBody(sensor);
         if (body != null) world.destroyBody(body);
+    }
+
+    public float getTimePassed(long startTime) {
+        return (float) TimeUtils.timeSinceMillis(startTime) / 1000;
     }
 
 
