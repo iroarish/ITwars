@@ -10,7 +10,20 @@ public class Media {
     public static Texture folderBullet;
     public static Texture weaponAnimation;
 
+    // Ui Texture
+    public static Texture activePtcSelect;
+    public static Texture activeMacSelect;
+    public static Texture inactivePtcSelect;
+    public static Texture inactiveMacSelect;
+
     public static void loadMedia() {
+
+        // Ui Texture
+        activePtcSelect = new Texture("UI/PtcButtonActive.png");
+        inactivePtcSelect = new Texture("UI/PtcButtonInactive.png");
+        activeMacSelect = new Texture("UI/MacButtonActive.png");
+        inactiveMacSelect = new Texture("UI/MacButtonInactive.png");
+
 
         player = new Texture("Entities/Player.png");
         dummy = new Texture("Entities/Dummy.png");
@@ -29,6 +42,12 @@ public class Media {
         dummy.dispose();
         rangeWeapon.dispose();
         folderBullet.dispose();
+
+        // Ui stuffs
+        activePtcSelect.dispose();
+        inactivePtcSelect.dispose();
+        activeMacSelect.dispose();
+        inactiveMacSelect.dispose();
     }
 
 }
