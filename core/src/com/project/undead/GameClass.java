@@ -3,10 +3,7 @@ package com.project.undead;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.project.undead.screens.GameMainMenu;
-import com.project.undead.screens.GameMapSelect;
-import com.project.undead.screens.GameOver;
-import com.project.undead.screens.GameScreen;
+import com.project.undead.screens.*;
 
 public class GameClass extends Game {
 
@@ -18,7 +15,7 @@ public class GameClass extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		this.setScreen(new GameMainMenu(this));
+		this.setScreen(new GameHowTo(this));
 
 		bgMusic = Media.mainmenuMusic;
 		bgMusic.play();

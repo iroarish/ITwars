@@ -25,6 +25,7 @@ public class Media {
     public static Texture inactiveBackButton;
     public static Texture mapSelectBg;
     public static Texture gameOverBg;
+    public static Texture howToBg;
 
     // Sounds
     public static Sound enemyDeath;
@@ -53,13 +54,14 @@ public class Media {
         inactiveBackButton = new Texture("UI/InactiveBack.png");
         mapSelectBg = new Texture("UI/dawnbackground.png");
         gameOverBg = new Texture("UI/nightbackground.png");
+        howToBg = new Texture("UI/fajrbackground.png");
 
 
 
         worm = new Texture("Entities/worm.png");
         virus = new Texture("Entities/virus.png");
         trojan = new Texture("Entities/trojan.png");
-        player = new Texture("Entities/Player.png");
+        player = new Texture("Entities/Player1.png");
         dummy = new Texture("Entities/Dummy.png");
         weapon1 = new Texture("Weapons/Weapon1.png");
         weapon2 = new Texture("Weapons/Weapon2.png");
@@ -92,6 +94,7 @@ public class Media {
         inactiveBackButton.dispose();
         mapSelectBg.dispose();
         gameOverBg.dispose();
+        howToBg.dispose();
 
         // Sound
         mainmenuMusic.dispose();

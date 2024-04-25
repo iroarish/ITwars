@@ -45,8 +45,8 @@ public class Player extends Entity {
         // Player Stuffs
         type = Enums.ENTITYTYPE.PLAYER;
         cameraPos = new Vector3();
-        width = 8;
-        height = 8;
+        width = 10;
+        height = 10;
         this.pos.x = pos.x;
         this.pos.y = pos.y;
         texture = Media.player;
