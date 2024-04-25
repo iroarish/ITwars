@@ -60,7 +60,7 @@ public class Melee extends Entity{
         updateMeleeCollision(playerPos); // Update the location of body collision based on the assigned compass
 
         // Update for time
-        if (control.LMB && getTimePassed(startTime) > 3) {
+        if (control.LMB && getTimePassed(startTime) > 1) {
             body.setActive(true);
         } else {
             body.setActive(false);
@@ -72,28 +72,28 @@ public class Melee extends Entity{
 
     public void updateMeleeCollision(Vector3 playerPos) {
         if (compass == NE) {
-            body.setTransform(playerPos.x + 25, playerPos.y + 25, 90f);
+            body.setTransform(playerPos.x + 15, playerPos.y + 8, 90f);
             weaponAngle = 90f;
         } else if (compass == N) {
-            body.setTransform(playerPos.x, playerPos.y + 25, 0f);
+            body.setTransform(playerPos.x + 3, playerPos.y + 13, 0f); // Done
             weaponAngle = 0f;
         } else if (compass == NW) {
-            body.setTransform(playerPos.x - 25, playerPos.y + 25, 180f);
+            body.setTransform(playerPos.x - 5, playerPos.y + 11, 180f);
             weaponAngle = 180f;
         } else if (compass == W) {
-            body.setTransform(playerPos.x - 25, playerPos.y, 67.55f);
+            body.setTransform(playerPos.x - 7, playerPos.y + 3, 67.55f);
             weaponAngle = 67.55f;
         } else if (compass == SW) {
-            body.setTransform(playerPos.x - 25, playerPos.y - 25, 90f);
+            body.setTransform(playerPos.x - 6, playerPos.y - 4, 90f);
             weaponAngle = 90f;
         } else if (compass == S) {
-            body.setTransform(playerPos.x, playerPos.y - 25, 0f);
+            body.setTransform(playerPos.x + 3, playerPos.y - 9, 0f); // Done
             weaponAngle = 0f;
         } else if (compass == SE) {
-            body.setTransform(playerPos.x + 25, playerPos.y - 25, 180f);
+            body.setTransform(playerPos.x + 13, playerPos.y - 5, 180f);
             weaponAngle = 180f;
         } else if (compass == E) {
-            body.setTransform(playerPos.x + 25, playerPos.y, 67.55f);
+            body.setTransform(playerPos.x + 15, playerPos.y + 3, 67.55f);
         }
     }
 
@@ -129,6 +129,9 @@ public class Melee extends Entity{
 
         if (body.isActive()) {
             System.out.println("Melee Attack");
+            Media.laptopSwing.play();
+            Media.laptopSwing.setVolume(0, 0.1f);
+            batch.draw(Media.weapon2, pos.x + xPos, pos.y, originXOffset, originYOffset, width, height, 1, 1, angle, 0, 0, (int) width, (int) height, flipX, flipY);
             startTime = TimeUtils.millis();
             // For Melee Animation
         } else {

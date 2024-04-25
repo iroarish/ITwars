@@ -87,7 +87,7 @@ public class CollisionHelper {
         hitbox.setAsBox(width, height);
 
         hitboxDef.shape = hitbox;
-//        hitboxDef.isSensor = true;
+        hitboxDef.isSensor = true;
 
         body.createFixture(hitboxDef).setUserData(id);
         hitbox.dispose();

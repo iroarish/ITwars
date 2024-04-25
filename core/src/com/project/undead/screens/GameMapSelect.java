@@ -4,10 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.project.undead.Control;
-import com.project.undead.GameClass;
-import com.project.undead.Media;
-import com.project.undead.ScreenSize;
+import com.badlogic.gdx.utils.TimeUtils;
+import com.project.undead.*;
 
 public class GameMapSelect implements Screen {
     GameClass game;
@@ -19,10 +17,15 @@ public class GameMapSelect implements Screen {
     float ptcButtonY;
     float macButtonX;
     float macButtonY;
+    float backButtonX;
+    float backButtonY;
 
     // Mouse position
     float mouseX;
     float mouseY;
+
+    // Time
+    long startTime = TimeUtils.millis();
 
     public GameMapSelect(GameClass game) {
         this.game = game;
@@ -35,6 +38,8 @@ public class GameMapSelect implements Screen {
         ptcButtonY = screen.SCREENHEIGHT / 1.5f;
         macButtonX = (screen.SCREENWIDTH - Media.inactiveMacSelect.getWidth()) / 2f;
         macButtonY = screen.SCREENHEIGHT / 2.5f;
+        backButtonX = 0;
+        backButtonY = 1;
     }
 
     @Override
@@ -44,6 +49,7 @@ public class GameMapSelect implements Screen {
 
     @Override
     public void render(float v) {
+        float endTime = (float) TimeUtils.timeSinceMillis(startTime) / 1000;
         mouseX = control.getMousePos().x;
         mouseY = control.getMousePos().y;
 
@@ -53,9 +59,43 @@ public class GameMapSelect implements Screen {
 
         game.batch.begin();
 
-        game.batch.draw(Media.inactivePtcSelect, ptcButtonX, ptcButtonY);
+        game.batch.draw(Media.mapSelectBg, 0, 0);
 
-        game.batch.draw(Media.inactiveMacSelect, macButtonX, macButtonY);
+        if (mouseX > ptcButtonX && mouseX < (ptcButtonX + Media.inactivePtcSelect.getWidth()) && mouseY > ptcButtonY * 0.3f && mouseY < (ptcButtonY * 0.35) + Media.inactivePtcSelect.getHeight()) {
+            game.batch.draw(Media.activePtcSelect, ptcButtonX, ptcButtonY);
+
+            if (control.isClicked() && endTime > 1) {
+                TileMap.map = TileMap.ptc;
+                this.dispose();
+                game.setScreen(new GameScreen(game));
+                game.batch.begin();
+            }
+        } else {
+            game.batch.draw(Media.inactivePtcSelect, ptcButtonX, ptcButtonY);
+        }
+
+        if (mouseX > ptcButtonX && mouseX < (macButtonX + Media.inactiveMacSelect.getWidth()) && mouseY > macButtonY * 1.1f && mouseY < (macButtonY * 1.2) + Media.inactiveMacSelect.getHeight()) {
+            game.batch.draw(Media.activeMacSelect, macButtonX, macButtonY);
+
+            if (control.isClicked() && endTime > 1) {
+                TileMap.map = TileMap.mac;
+                this.dispose();
+                game.setScreen(new GameScreen(game));
+                game.batch.begin();
+            }
+        } else {
+            game.batch.draw(Media.inactiveMacSelect, macButtonX, macButtonY);
+        }
+
+        if (mouseX > backButtonX && mouseX < (backButtonX + Media.inactiveBackButton.getWidth()) && mouseY > backButtonY * 700f && mouseY < (backButtonY * 768) + Media.inactiveBackButton.getHeight()) {
+            game.batch.draw(Media.activeBackButton, backButtonX, backButtonY);
+
+            if (control.isClicked() && endTime > 1) {
+                game.setScreen(new GameMainMenu(game));
+            }
+        } else {
+            game.batch.draw(Media.inactiveBackButton, backButtonX, backButtonY);
+        }
 
         game.batch.end();
 

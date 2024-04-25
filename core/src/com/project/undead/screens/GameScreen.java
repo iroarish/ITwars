@@ -5,7 +5,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -37,12 +39,27 @@ public class GameScreen implements Screen {
     GameClass game;
 
     // Elapsed time
-    long startTime = TimeUtils.millis();
+    public long startTime = TimeUtils.millis();
+    public static float currentTime;
+
+
+    // Font
+    BitmapFont font;
 
     // Public Variables
+
     public GameScreen(GameClass game) {
         this.game = game;
+
+        // Font
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Font/GravityBold8.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 6; // font size
+        font = generator.generateFont(parameter);
+        generator.dispose();
     }
+
+    public GameScreen() {};
 
 
     @Override
@@ -89,6 +106,9 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float v) {
+        String myScore = "Your Score: " + player.score;
+        String playerHealth = "Health: " + player.HITPOINTS;
+        String playerAmmoCount = "Ammo: " + player.currentAmmo;
 
         // Use to reset graphics and fix some graphical errors...
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.2f, 1);
@@ -96,9 +116,10 @@ public class GameScreen implements Screen {
 
         TileMap.world.step(Gdx.graphics.getDeltaTime(), 8, 3);
 
-        float endTime = TimeUtils.timeSinceMillis(startTime) / 1000;
+        float endTime = (float) TimeUtils.timeSinceMillis(startTime) / 1000;
+        currentTime = (float) TimeUtils.timeSinceMillis(startTime) / 10000;
 
-        if (endTime > 5) {
+        if (endTime > 10) {
             tileMap.addEntities();
             startTime = TimeUtils.millis();
         }
@@ -108,7 +129,7 @@ public class GameScreen implements Screen {
         for (Enemy e : tileMap.entities) {
             e.update(player);
         }
-        camera.position.lerp(player.pos, .1f);
+        camera.position.lerp(player.pos, 1f);
 
         // Di permanent???
         camera.update();
@@ -137,6 +158,11 @@ public class GameScreen implements Screen {
             e.draw(game.batch);
         }
 
+
+        font.draw(game.batch, myScore, camera.position.x - 100, camera.position.y + 55);
+        font.draw(game.batch, playerHealth, camera.position.x - 100, camera.position.y - 45);
+        font.draw(game.batch, playerAmmoCount, camera.position.x + 50, camera.position.y - 45);
+
         game.batch.end();
 
         // Clears entity or bullet in world
@@ -148,6 +174,7 @@ public class GameScreen implements Screen {
         // Debugging Purposes
 
     }
+
 
     @Override
     public void resize(int i, int i1) {

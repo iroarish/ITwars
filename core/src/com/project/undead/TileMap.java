@@ -15,9 +15,9 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.project.undead.collision.CollisionHelper;
 import com.project.undead.collision.ContactChecker;
 import com.project.undead.collision.MaskHelper;
-import com.project.undead.entities.Dummy;
-import com.project.undead.entities.Enemy;
+import com.project.undead.entities.*;
 import com.project.undead.entities.ammo.Ammo;
+import com.project.undead.screens.GameScreen;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,7 +31,16 @@ public class TileMap {
 
     // Enemy Thingies
     public ArrayList<Enemy> entities = new ArrayList<Enemy>();
-    public Dummy dummy;
+    Dummy dummy;
+    Trojan trojan;
+    Worm worm;
+    Virus virus;
+
+
+    // Map
+    public static int map;
+    public static int ptc = 1;
+    public static int mac = 2;
 
     // Time Elapsed
     float beginTime = Gdx.graphics.getDeltaTime();
@@ -65,8 +74,14 @@ public class TileMap {
     }
 
     public OrthogonalTiledMapRenderer setupMap() {
-//        tiledMap = new TmxMapLoader().load("Beta/TileMap/NewMap.tmx");
-        tiledMap = new TmxMapLoader().load("Maps/ptc.tmx");
+
+        if (map == ptc) {
+            tiledMap = new TmxMapLoader().load("Maps/ptc.tmx");
+        } else if (map == mac) {
+            tiledMap = new TmxMapLoader().load("Maps/maclab.tmx");
+        } else {
+            tiledMap = new TmxMapLoader().load("Maps/maclab.tmx");
+        }
         return new OrthogonalTiledMapRenderer(tiledMap);
     }
 
@@ -86,7 +101,7 @@ public class TileMap {
         MapLayer mapLayer = tiledMap.getLayers().get("Playable");
         TiledMapTileLayer grass = (TiledMapTileLayer) mapLayer;
 
-        int limit = 10;
+        float limit = 10 + (10 * GameScreen.currentTime);
         int counter = 0;
 
 
@@ -97,14 +112,31 @@ public class TileMap {
                 Vector3 pos = new Vector3(x * ((TiledMapTileLayer) mapLayer).getTileWidth(), y * ((TiledMapTileLayer) mapLayer).getTileHeight(), 0);
                 if (cell != null) {
                     if (MathUtils.random(100) > 90 && counter < limit) {
-                        dummy = new Dummy(pos);
-                        entities.add(dummy);
+                        randomizeEnemy(pos);
                         counter++;
                     }
                 }
             }
 
 
+        }
+    }
+
+    public void randomizeEnemy(Vector3 pos) {
+        int randomEnemy = MathUtils.random(4);
+
+        if (randomEnemy == 1) {
+            dummy = new Dummy(pos);
+            entities.add(dummy);
+        } else if (randomEnemy == 2) {
+            trojan = new Trojan(pos);
+            entities.add(trojan);
+        } else if (randomEnemy == 3) {
+            worm = new Worm(pos);
+            entities.add(worm);
+        } else if (randomEnemy == 4) {
+            virus = new Virus(pos);
+            entities.add(virus);
         }
     }
 

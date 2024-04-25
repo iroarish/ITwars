@@ -22,6 +22,7 @@ public class ContactChecker implements ContactListener {
         }
 
 
+
         if (fixA.getUserData() instanceof Player && fixB.getUserData() instanceof Enemy) {
             ((Entity) fixA.getUserData()).onHit();
         } else if (fixB.getUserData() instanceof Player && fixA.getUserData() instanceof Enemy) {

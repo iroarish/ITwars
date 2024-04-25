@@ -86,9 +86,6 @@ public class Ranged extends Entity{
         }
 
         // Bullet
-        for (Ammo a : activeAmmo) {
-            a.draw(batch);
-        }
 
         // Debugging Purposes
     }

@@ -2,10 +2,14 @@ package com.project.undead.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.*;
 import com.project.undead.Control;
 import com.project.undead.GameClass;
+import com.project.undead.Media;
 import com.project.undead.ScreenSize;
 
 public class GameMainMenu implements Screen {
@@ -28,6 +32,9 @@ public class GameMainMenu implements Screen {
     float mouseX;
     float mouseY;
 
+    // Sounds
+
+
 
     public GameMainMenu(GameClass game) {
         this.game = game;
@@ -39,12 +46,15 @@ public class GameMainMenu implements Screen {
         title = new Texture("UI/Title.png");
         System.out.println(title.getWidth() + " " + title.getHeight());
         control = new Control(screen.SCREENWIDTH, screen.SCREENHEIGHT);
+        Media.loadMedia();
 
         // Variable for Positions
         playButtonX = (screen.SCREENWIDTH - activePlayButton.getWidth()) / 2f;
         playButtonY = screen.SCREENHEIGHT / 2.8f;
         quitButtonX = (screen.SCREENWIDTH - activePlayButton.getWidth()) / 2f;
         quitButtonY = screen.SCREENHEIGHT / 3.9f;
+        // For font
+
     }
 
     @Override
@@ -62,7 +72,9 @@ public class GameMainMenu implements Screen {
 
         game.batch.begin();
 
-        game.batch.draw(title, (screen.SCREENWIDTH - title.getWidth()) / 2f, screen.SCREENHEIGHT / 1.5f);
+        game.batch.draw(Media.menuBackground, 0, 0);
+
+//        game.batch.draw(title, (screen.SCREENWIDTH - title.getWidth()) / 2f, screen.SCREENHEIGHT / 1.5f);
 
         // Play button stuffs
         if (mouseX > playButtonX && mouseX < (playButtonX + activePlayButton.getWidth()) && mouseY > playButtonY * 1.6f && mouseY < (playButtonY * 1.6) + playButton.getHeight()) {
@@ -70,8 +82,7 @@ public class GameMainMenu implements Screen {
 
             if (control.isClicked()) {
                 this.dispose();
-                game.setScreen(new GameScreen(game));
-                game.batch.begin();
+                game.setScreen(new GameMapSelect(game));
             }
         } else {
             game.batch.draw(playButton, playButtonX, playButtonY);
@@ -89,6 +100,7 @@ public class GameMainMenu implements Screen {
         } else {
             game.batch.draw(quitButton, (screen.SCREENWIDTH - quitButton.getWidth()) / 2f, quitButtonY);
         }
+
 
         game.batch.end();
     }
