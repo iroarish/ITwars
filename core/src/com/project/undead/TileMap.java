@@ -101,7 +101,7 @@ public class TileMap {
         MapLayer mapLayer = tiledMap.getLayers().get("Playable");
         TiledMapTileLayer grass = (TiledMapTileLayer) mapLayer;
 
-        float limit = 10 + (10 * GameScreen.currentTime);
+        float limit = 7 + (10 * GameScreen.currentTime);
         int counter = 0;
 
 

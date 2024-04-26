@@ -25,14 +25,19 @@ public class GameMainMenu implements Screen {
     Control control;
 
     // Variable for Positions
+    public static int bestScore = 0;
     float quitButtonX;
     float quitButtonY;
     float playButtonX;
     float playButtonY;
+    float howToButtonX;
+    float howToButtonX2;
+    float howToButtonY;
     float mouseX;
     float mouseY;
 
-    // Sounds
+    // Font
+    BitmapFont font;
 
 
 
@@ -53,8 +58,16 @@ public class GameMainMenu implements Screen {
         playButtonY = screen.SCREENHEIGHT / 2.8f;
         quitButtonX = (screen.SCREENWIDTH - activePlayButton.getWidth()) / 2f;
         quitButtonY = screen.SCREENHEIGHT / 3.9f;
-        // For font
+        howToButtonX = 1200;
+        howToButtonX2 = 200;
+        howToButtonY = 180;
 
+        // For font
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Font/GravityBold8.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 16; // font size
+        font = generator.generateFont(parameter);
+        generator.dispose();
     }
 
     @Override
@@ -63,6 +76,8 @@ public class GameMainMenu implements Screen {
 
     @Override
     public void render(float v) {
+        String currentBestScore = "Most Computers Saved: " + bestScore;
+
         // Mouse Position
         mouseX = control.getMousePos().x;
         mouseY = control.getMousePos().y;
@@ -73,6 +88,7 @@ public class GameMainMenu implements Screen {
         game.batch.begin();
 
         game.batch.draw(Media.menuBackground, 0, 0);
+        font.draw(game.batch, currentBestScore, 120, 650);
 
 //        game.batch.draw(title, (screen.SCREENWIDTH - title.getWidth()) / 2f, screen.SCREENHEIGHT / 1.5f);
 
@@ -100,6 +116,29 @@ public class GameMainMenu implements Screen {
         } else {
             game.batch.draw(quitButton, (screen.SCREENWIDTH - quitButton.getWidth()) / 2f, quitButtonY);
         }
+
+        if (mouseX > howToButtonX && mouseX < (howToButtonX + Media.inactiveBackButton.getWidth()) && mouseY > howToButtonY * 2.8f && mouseY < (howToButtonY * 3) + Media.inactiveBackButton.getHeight()) {
+            game.batch.draw(Media.activeHowTo, howToButtonX, howToButtonY);
+
+            if (control.isClicked()) {
+                game.setScreen(new GameHowTo(game));
+            }
+        } else {
+            game.batch.draw(Media.inactiveHowTo, howToButtonX, howToButtonY);
+        }
+
+        if (mouseX > howToButtonX2 && mouseX < (howToButtonX2 + Media.inactiveBackButton.getWidth()) && mouseY > howToButtonY * 2.8f && mouseY < (howToButtonY * 3) + Media.inactiveBackButton.getHeight()) {
+            game.batch.draw(Media.activeHowTo, howToButtonX2, howToButtonY);
+
+            if (control.isClicked()) {
+                game.mute = !game.mute;
+            }
+        } else {
+            game.batch.draw(Media.inactiveHowTo, howToButtonX2, howToButtonY);
+        }
+
+
+
 
 
         game.batch.end();

@@ -78,6 +78,10 @@ public class GameOver implements Screen {
         bigFont.draw(game.batch, "Game Over", screen.SCREENWIDTH / 3.5f, screen.SCREENHEIGHT / 1.2f);
         font.draw(game.batch, finalScore, screen.SCREENWIDTH / 5f, screen.SCREENHEIGHT / 1.7f);
 
+        if (Player.score > GameMainMenu.bestScore) {
+            GameMainMenu.bestScore = Player.score;
+        }
+
         if (mouseX > menuButtonX && mouseX < (menuButtonX + Media.inactiveMainMenu.getWidth()) && mouseY > menuButtonY * 4f && mouseY < (menuButtonY * 4.2) + Media.inactiveMainMenu.getHeight()) {
             game.batch.draw(Media.activeMainMenu, menuButtonX, menuButtonY);
 

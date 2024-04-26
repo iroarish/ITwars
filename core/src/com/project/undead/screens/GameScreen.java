@@ -2,6 +2,7 @@ package com.project.undead.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -54,7 +55,7 @@ public class GameScreen implements Screen {
         // Font
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Font/GravityBold8.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 6; // font size
+        parameter.size = 8; // font size
         font = generator.generateFont(parameter);
         generator.dispose();
     }
@@ -119,7 +120,7 @@ public class GameScreen implements Screen {
         float endTime = (float) TimeUtils.timeSinceMillis(startTime) / 1000;
         currentTime = (float) TimeUtils.timeSinceMillis(startTime) / 10000;
 
-        if (endTime > 10) {
+        if (endTime > 15) {
             tileMap.addEntities();
             startTime = TimeUtils.millis();
         }
@@ -159,9 +160,10 @@ public class GameScreen implements Screen {
         }
 
 
+        font.setColor(Color.GOLDENROD);
         font.draw(game.batch, myScore, camera.position.x - 100, camera.position.y + 55);
         font.draw(game.batch, playerHealth, camera.position.x - 100, camera.position.y - 45);
-        font.draw(game.batch, playerAmmoCount, camera.position.x + 50, camera.position.y - 45);
+        font.draw(game.batch, playerAmmoCount, camera.position.x + 35, camera.position.y - 45);
 
         game.batch.end();
 

@@ -20,7 +20,7 @@ public class Trojan extends Enemy{
         screen = new GameScreen();
 
         // Dummy Stats
-        HITPOINTS = 2;
+        HITPOINTS = 1;
         speed = 10 + (1 * GameScreen.currentTime);
 
         // Dummy stuffswww

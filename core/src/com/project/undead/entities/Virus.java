@@ -20,7 +20,7 @@ public class Virus extends Enemy{
         screen = new GameScreen();
 
         // Dummy Stats
-        HITPOINTS = 4;
+        HITPOINTS = 3;
         speed = 5 + (1 * GameScreen.currentTime);
 
         // Dummy stuffswww

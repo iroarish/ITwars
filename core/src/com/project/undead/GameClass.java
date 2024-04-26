@@ -7,6 +7,8 @@ import com.project.undead.screens.*;
 
 public class GameClass extends Game {
 
+	public boolean mute = false;
+
 	public SpriteBatch batch;
 	public boolean bgPlaying = false;
 
@@ -15,17 +17,24 @@ public class GameClass extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		this.setScreen(new GameHowTo(this));
+		this.setScreen(new GameMainMenu(this));
 
 		bgMusic = Media.mainmenuMusic;
 		bgMusic.play();
 		bgMusic.setLooping(true);
-		bgMusic.setVolume(0.1f);
+
+
 	}
 
 	@Override
 	public void render() {
 		super.render();
+		if (mute) {
+			bgMusic.setVolume(0);
+		}
+		else {
+			bgMusic.setVolume(1f);
+		}
 	}
 	
 	@Override

@@ -20,7 +20,7 @@ public class BulletFolder extends Ammo {
         damage = 1;
         width = texture.getWidth();
         height = texture.getHeight();
-        speed = 30;
+        speed = 40;
         active = true;
         setupBullet(world);
     }

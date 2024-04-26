@@ -24,14 +24,26 @@ public class ContactChecker implements ContactListener {
 
 
         if (fixA.getUserData() instanceof Player && fixB.getUserData() instanceof Enemy) {
-            ((Entity) fixA.getUserData()).onHit();
+            ((Player) fixA.getUserData()).isGettingAttack = true;
         } else if (fixB.getUserData() instanceof Player && fixA.getUserData() instanceof Enemy) {
-            ((Entity) fixB.getUserData()).onHit();
+            ((Player) fixB.getUserData()).isGettingAttack = true;
         }
     }
 
     @Override
     public void endContact(Contact contact) {
+
+        Fixture fixA = contact.getFixtureA();
+        Fixture fixB = contact.getFixtureB();
+
+        if (fixA == null || fixB == null) return;
+        if (fixA.getUserData() == null || fixB.getUserData() == null) return;
+
+        if (fixA.getUserData() instanceof Player && fixB.getUserData() instanceof Enemy) {
+            ((Player) fixA.getUserData()).isGettingAttack = false;
+        } else if (fixB.getUserData() instanceof Player && fixA.getUserData() instanceof Enemy) {
+            ((Player) fixB.getUserData()).isGettingAttack = false;
+        }
     }
 
     @Override

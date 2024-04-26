@@ -26,6 +26,8 @@ public class Media {
     public static Texture mapSelectBg;
     public static Texture gameOverBg;
     public static Texture howToBg;
+    public static Texture activeHowTo;
+    public static Texture inactiveHowTo;
 
     // Sounds
     public static Sound enemyDeath;
@@ -40,7 +42,7 @@ public class Media {
         laptopSwing = Gdx.audio.newSound(Gdx.files.internal("Sound/sword.wav"));
         enemyDeath = Gdx.audio.newSound(Gdx.files.internal("Sound/enemydeath.wav"));
         rangedShot = Gdx.audio.newSound(Gdx.files.internal("Sound/shot.wav"));
-        mainmenuMusic = Gdx.audio.newMusic(Gdx.files.internal("Sound/Spaceship.wav"));
+        mainmenuMusic = Gdx.audio.newMusic(Gdx.files.internal("Sound/sasamahankita.mp3"));
 
         // Ui Texture
         activePtcSelect = new Texture("UI/PtcButtonActive.png");
@@ -55,6 +57,8 @@ public class Media {
         mapSelectBg = new Texture("UI/dawnbackground.png");
         gameOverBg = new Texture("UI/nightbackground.png");
         howToBg = new Texture("UI/fajrbackground.png");
+        activeHowTo = new Texture("UI/ActiveHowTo.png");
+        inactiveHowTo = new Texture("UI/InactiveHowTo.png");
 
 
 
@@ -95,6 +99,8 @@ public class Media {
         mapSelectBg.dispose();
         gameOverBg.dispose();
         howToBg.dispose();
+        activeHowTo.dispose();
+        inactiveHowTo.dispose();
 
         // Sound
         mainmenuMusic.dispose();

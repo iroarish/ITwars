@@ -29,11 +29,14 @@ public class Player extends Entity {
     public Vector3 cameraPos;
 
     // Player stats
-    public int HITPOINTS = 5;
+    public int HITPOINTS = 100;
     int SPEED = 15;
+
+    public boolean isGettingAttack = false;
 
     // Time tracker
     long startTime = TimeUtils.millis();
+    long startTimeHealth = TimeUtils.millis();
 
     public static int score;
     public int currentAmmo;
@@ -63,6 +66,7 @@ public class Player extends Entity {
     public void update(Control control, World world) {
         // Time Tracker for Shooting the gun
         float endTime = (float) TimeUtils.timeSinceMillis(startTime) / 1000;
+        float endTimeHealth = (float) TimeUtils.timeSinceMillis(startTime) / 1000;
 
 
         dirX = 0;
@@ -125,6 +129,11 @@ public class Player extends Entity {
             melee.updateAttack(pos, control);
         }
 
+        if (isGettingAttack && endTimeHealth > 1) {
+            HITPOINTS--;
+            startTimeHealth = TimeUtils.millis();
+        }
+
 
 
         cameraPos.set(pos);
@@ -160,7 +169,5 @@ public class Player extends Entity {
 
     @Override
     public void onHit() {
-        HITPOINTS--;
-        System.out.println("Player is hit: " + HITPOINTS);
     }
 }

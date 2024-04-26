@@ -72,10 +72,10 @@ public class Melee extends Entity{
 
     public void updateMeleeCollision(Vector3 playerPos) {
         if (compass == NE) {
-            body.setTransform(playerPos.x + 15, playerPos.y + 8, 90f);
+            body.setTransform(playerPos.x + 16, playerPos.y + 8, 90f);
             weaponAngle = 90f;
         } else if (compass == N) {
-            body.setTransform(playerPos.x + 3, playerPos.y + 13, 0f); // Done
+            body.setTransform(playerPos.x + 3, playerPos.y + 15, 0f); // Done
             weaponAngle = 0f;
         } else if (compass == NW) {
             body.setTransform(playerPos.x - 5, playerPos.y + 11, 180f);
@@ -90,10 +90,10 @@ public class Melee extends Entity{
             body.setTransform(playerPos.x + 3, playerPos.y - 9, 0f); // Done
             weaponAngle = 0f;
         } else if (compass == SE) {
-            body.setTransform(playerPos.x + 13, playerPos.y - 5, 180f);
+            body.setTransform(playerPos.x + 15, playerPos.y - 5, 180f);
             weaponAngle = 180f;
         } else if (compass == E) {
-            body.setTransform(playerPos.x + 15, playerPos.y + 3, 67.55f);
+            body.setTransform(playerPos.x + 17, playerPos.y + 3, 67.55f);
         }
     }
 
