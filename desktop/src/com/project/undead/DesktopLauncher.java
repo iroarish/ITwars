@@ -15,5 +15,6 @@ public class DesktopLauncher {
 		config.setWindowedMode(screen.SCREENWIDTH, screen.SCREENHEIGHT);
 		config.setResizable(false);
 		new Lwjgl3Application(new GameClass(), config);
+		Media.loadMedia();
 	}
 }

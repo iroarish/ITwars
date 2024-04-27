@@ -1,5 +1,6 @@
 package com.project.undead;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
@@ -16,6 +17,11 @@ public class Control extends InputAdapter implements InputProcessor {
     public boolean down;
     public boolean left;
     public boolean right;
+    public boolean weaponSwitch;
+
+    // Action of Users
+    public float angle;
+    public int direction;
 
     // Mouse
     public boolean LMB;
@@ -23,6 +29,7 @@ public class Control extends InputAdapter implements InputProcessor {
     public boolean processed_click;
     public Vector2 mouseClickPos = new Vector2();
     public Vector2 mapClickPos = new Vector2();
+    public Vector2 mousePos = new Vector2();
 
     public boolean debug = false;
 
@@ -39,6 +46,14 @@ public class Control extends InputAdapter implements InputProcessor {
 //        this.camera = Vector3;
         this.screenWidth = screen_width;
         this.screenHeight = screen_height;
+    }
+
+    public Vector2 getMousePos() {
+        return new Vector2(Gdx.input.getX(), Gdx.input.getY());
+    }
+
+    public boolean isClicked() {
+        return Gdx.input.isTouched();
     }
 
     public void setMouseClickedPos(int screenX, int screenY) {
@@ -90,6 +105,9 @@ public class Control extends InputAdapter implements InputProcessor {
             case Input.Keys.G:
                 debug = !debug;
                 break;
+            case Input.Keys.Q:
+                weaponSwitch = !weaponSwitch;
+                break;
         }
         return false;
     }
@@ -130,6 +148,15 @@ public class Control extends InputAdapter implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
+        float flippedY = screenHeight - screenY;
+        mousePos.set(screenX, flippedY);
+
+        // Setting the angle of mouse
+        angle = (float) Math.toDegrees(Math.atan2(screenX - (screenWidth/2), screenY - (screenHeight/2)));
+        angle = angle < 0 ? angle += 360: angle;
+
+        direction = (int) Math.floor((angle / 45) + 0.5) & 7;
+
         return false;
     }
 

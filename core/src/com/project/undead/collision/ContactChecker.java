@@ -2,12 +2,11 @@ package com.project.undead.collision;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
-import com.project.undead.entities.Entity;
+import com.project.undead.entities.*;
+import com.project.undead.entities.ammo.Ammo;
 
 public class ContactChecker implements ContactListener {
 
-    boolean isHit = false;
-    Test test = new Test(isHit);
     @Override
     public void beginContact(Contact contact) {
         Fixture fixA = contact.getFixtureA();
@@ -15,12 +14,36 @@ public class ContactChecker implements ContactListener {
 
         if (fixA == null || fixB == null) return;
         if (fixA.getUserData() == null || fixB.getUserData() == null) return;
-        isHit = true;
+
+        if (fixA.getUserData() instanceof Melee || fixA.getUserData() instanceof Ammo && fixB.getUserData() instanceof Enemy) {
+            ((Entity) fixB.getUserData()).onHit();
+        } else if (fixB.getUserData() instanceof Melee || fixB.getUserData() instanceof Ammo && fixA.getUserData() instanceof Enemy) {
+            ((Entity) fixA.getUserData()).onHit();
+        }
+
+
+
+        if (fixA.getUserData() instanceof Player && fixB.getUserData() instanceof Enemy) {
+            ((Player) fixA.getUserData()).isGettingAttack = true;
+        } else if (fixB.getUserData() instanceof Player && fixA.getUserData() instanceof Enemy) {
+            ((Player) fixB.getUserData()).isGettingAttack = true;
+        }
     }
 
     @Override
     public void endContact(Contact contact) {
-        isHit = false;
+
+        Fixture fixA = contact.getFixtureA();
+        Fixture fixB = contact.getFixtureB();
+
+        if (fixA == null || fixB == null) return;
+        if (fixA.getUserData() == null || fixB.getUserData() == null) return;
+
+        if (fixA.getUserData() instanceof Player && fixB.getUserData() instanceof Enemy) {
+            ((Player) fixA.getUserData()).isGettingAttack = false;
+        } else if (fixB.getUserData() instanceof Player && fixA.getUserData() instanceof Enemy) {
+            ((Player) fixB.getUserData()).isGettingAttack = false;
+        }
     }
 
     @Override

@@ -1,64 +1,38 @@
 package com.project.undead.entities;
 
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.project.undead.Enums;
 import com.project.undead.Media;
 import com.project.undead.collision.CollisionHelper;
-import com.project.undead.collision.HitboxHelper;
 import com.project.undead.collision.MaskHelper;
-import com.project.undead.screens.TileMap;
+import com.project.undead.TileMap;
+import com.project.undead.screens.GameScreen;
 
-public class Dummy extends Entity{
+public class Dummy extends Enemy{
     MaskHelper maskHelper;
-    ENTITYSTAT STAT;
+    GameScreen screen;
 
     public Dummy(Vector3 pos) {
         super();
-        STAT = new ENTITYSTAT();
         maskHelper = new MaskHelper();
+        screen = new GameScreen();
 
-        // Enemy stuffswww
+        // Dummy Stats
+        HITPOINTS = 3;
+        speed = 3 + (1 * GameScreen.currentTime);
+
+        // Dummy stuffswww
         type = Enums.ENTITYTYPE.DUMMY;
         width = 8;
         height = 8;
-        speed = STAT.DUMMY_SPEED;
         this.pos.x = pos.x;
         this.pos.y = pos.y;
         texture = Media.dummy;
-        body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.DUMMIES, maskHelper.DUMMY_MASK, "Dummy");
-//        hitbox = HitboxHelper.createHitbox(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, "Dummy");
-    }
-
-
-    public void update(Player player) {
-        dirX = 0;
-        dirY = 0;
-
-        if (player.pos.x > this.pos.x) {
-            dirX = 1;
-        }
-        if (player.pos.x < this.pos.x) {
-            dirX = -1;
-        }
-        if (player.pos.y < this.pos.y) {
-            dirY = -1;
-        }
-        if (player.pos.y > this.pos.y) {
-            dirY = 1;
-        }
-
-        pos.x += dirX * speed;
-        pos.y += dirY * speed;
-
-        body.setLinearVelocity(dirX * speed, dirY * speed);
-        pos.x = body.getPosition().x - width / 2;
-        pos.y = body.getPosition().y - height / 4;
-    }
-
-    @Override
-    public void onPlayerHit() {
-        System.out.println("Dummy hit!");
+        remove = false;
+        body = CollisionHelper.createBody(TileMap.world, width / 2, height / 2, pos, BodyDef.BodyType.DynamicBody, maskHelper.DUMMIES, maskHelper.DUMMY_MASK, this);
+        body.setAwake(true);
     }
 }

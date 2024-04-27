@@ -2,39 +2,65 @@ package com.project.undead.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.project.undead.Control;
-import com.project.undead.GameClass;
-import com.project.undead.Media;
+import com.badlogic.gdx.utils.TimeUtils;
+import com.project.undead.*;
 import com.project.undead.entities.Dummy;
+import com.project.undead.entities.Enemy;
+import com.project.undead.entities.Melee;
 import com.project.undead.entities.Player;
 
 public class GameScreen implements Screen {
 
     private OrthographicCamera camera;
+    private OrthographicCamera hudCamera;
     // Sprite sprite;
     private Texture texture;
     private Box2DDebugRenderer debugRenderer;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private TileMap tileMap;
+    ScreenSize screen = new ScreenSize();
 
 
     // Display Size
     private int displayW;
     private int displayH;
     Control control;
+    Melee melee;
     Player player;
 
     GameClass game;
 
+    // Elapsed time
+    public long startTime = TimeUtils.millis();
+    public static float currentTime;
+
+
+    // Font
+    BitmapFont font;
+
+    // Public Variables
+
     public GameScreen(GameClass game) {
         this.game = game;
+
+        // Font
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Font/GravityBold8.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 8; // font size
+        font = generator.generateFont(parameter);
+        generator.dispose();
     }
+
+    public GameScreen() {};
 
 
     @Override
@@ -59,8 +85,12 @@ public class GameScreen implements Screen {
         int h = displayH / 2; //266; //(int) (displayH/ Math.floor(displayH / 160));
         int w = displayW / 2; //200; //(int) (displayW / (displayH / Math.floor(displayH / 160)));
 
+        // Camera stuffs
         camera = new OrthographicCamera(w, h);
         camera.zoom = .3f;
+
+        hudCamera = new OrthographicCamera(w, h);
+        hudCamera.zoom = 2f;
 
         // Keyboard input
         control = new Control(displayW, displayH, camera);
@@ -69,12 +99,17 @@ public class GameScreen implements Screen {
         Media.loadMedia();
 
         // HUH? ANO TO?
+        melee  = new Melee(1, -1, 7);
         player = new Player(tileMap.getCenterTile());
+
         tileMap.addEntities();
     }
 
     @Override
     public void render(float v) {
+        String myScore = "Your Score: " + player.score;
+        String playerHealth = "Health: " + player.HITPOINTS;
+        String playerAmmoCount = "Ammo: " + player.currentAmmo;
 
         // Use to reset graphics and fix some graphical errors...
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.2f, 1);
@@ -82,12 +117,20 @@ public class GameScreen implements Screen {
 
         TileMap.world.step(Gdx.graphics.getDeltaTime(), 8, 3);
 
+        float endTime = (float) TimeUtils.timeSinceMillis(startTime) / 1000;
+        currentTime = (float) TimeUtils.timeSinceMillis(startTime) / 10000;
 
-        player.update(control);
-        for (Dummy e : tileMap.entities) {
+        if (endTime > 15) {
+            tileMap.addEntities();
+            startTime = TimeUtils.millis();
+        }
+
+
+        player.update(control, TileMap.world);
+        for (Enemy e : tileMap.entities) {
             e.update(player);
         }
-        camera.position.lerp(player.pos, .1f);
+        camera.position.lerp(player.pos, 1f);
 
         // Di permanent???
         camera.update();
@@ -102,16 +145,38 @@ public class GameScreen implements Screen {
 
         game.batch.begin();
 
+        if (player.HITPOINTS < 1) {
+            this.dispose();
+            hudCamera.position.x = screen.SCREENWIDTH / 2f;
+            hudCamera.position.y = screen.SCREENHEIGHT / 2f;
+            hudCamera.update();
+            game.batch.setProjectionMatrix(hudCamera.combined);
+            game.setScreen(new GameOver(game));
+        }
+
         player.draw(game.batch);
-        for (Dummy e : tileMap.entities) {
+        for (Enemy e : tileMap.entities) {
             e.draw(game.batch);
         }
 
+
+        font.setColor(Color.GOLDENROD);
+        font.draw(game.batch, myScore, camera.position.x - 100, camera.position.y + 55);
+        font.draw(game.batch, playerHealth, camera.position.x - 100, camera.position.y - 45);
+        font.draw(game.batch, playerAmmoCount, camera.position.x + 35, camera.position.y - 45);
+
         game.batch.end();
+
+        // Clears entity or bullet in world
+        player.clearAmmo(TileMap.world);
+        tileMap.clearDeadEnemy();
 
         tileMap.tick(camera, control);
 
+        // Debugging Purposes
+
     }
+
 
     @Override
     public void resize(int i, int i1) {
@@ -135,6 +200,5 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        game.batch.dispose();
     }
 }
